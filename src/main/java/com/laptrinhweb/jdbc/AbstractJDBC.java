@@ -9,6 +9,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.laptrinhweb.mapper.ResultSetMapper;
 import com.laptrinhweb.mapper.RowMapper;
 
 public class AbstractJDBC<T> {
@@ -25,10 +26,26 @@ public class AbstractJDBC<T> {
 		}
 		return null;
 	}
+	/*
+	 * @SuppressWarnings("hiding") public <T> List<T> query(String sql, RowMapper<T>
+	 * rowMapper, Object... parameters) { List<T> results = new ArrayList<T>();
+	 * 
+	 * Connection conn = getConnection(); PreparedStatement statement = null;
+	 * ResultSet resultSet = null;
+	 * 
+	 * try { statement = conn.prepareStatement(sql); resultSet =
+	 * statement.executeQuery(); if (conn != null) { while (resultSet.next()) {
+	 * results.add(rowMapper.mapRow(resultSet)); } return results; }
+	 * 
+	 * } catch (SQLException e) { System.out.println(e.getMessage()); } finally {
+	 * try { if (conn != null) conn.close();
+	 * 
+	 * } catch (SQLException e) { e.printStackTrace(); } } return null; }
+	 */
 
-	@SuppressWarnings("hiding")
-	public <T> List<T> query(String sql, RowMapper<T> rowMapper, Object... parameters) {
-		List<T> results = new ArrayList<T>();
+	public <T> List<T> query(String sql, Class<T> zclass, Object... parameters) {
+
+		ResultSetMapper<T> resultSetMapper = new ResultSetMapper<T>();
 
 		Connection conn = getConnection();
 		PreparedStatement statement = null;
@@ -38,10 +55,7 @@ public class AbstractJDBC<T> {
 			statement = conn.prepareStatement(sql);
 			resultSet = statement.executeQuery();
 			if (conn != null) {
-				while (resultSet.next()) {
-					results.add(rowMapper.mapRow(resultSet));
-				}
-				return results;
+				return resultSetMapper.mapRow(resultSet, zclass);
 			}
 
 		} catch (SQLException e) {

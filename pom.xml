@@ -10,6 +10,7 @@
 
 	<properties>
 		<mysql.version>8.0.13</mysql.version>
+		<commons-beanutils.version>1.9.3</commons-beanutils.version>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
 	</properties>
@@ -21,6 +22,13 @@
 			<artifactId>mysql-connector-java</artifactId>
 			<version>${mysql.version}</version>
 		</dependency>
+
+		<dependency>
+			<groupId>commons-beanutils</groupId>
+			<artifactId>commons-beanutils</artifactId>
+			<version>${commons-beanutils.version}</version>
+		</dependency>
+
 
 
 	</dependencies>

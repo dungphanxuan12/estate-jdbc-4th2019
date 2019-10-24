@@ -7,10 +7,15 @@ package com.laptrinhweb.model;
 public class BuildingModel {
 
 	private String name;
+
 	private String ward;
+
 	private String street;
+
 	private String structure;
+
 	private Integer numberOfBasement;
+
 	private Integer buildingArea;
 
 	public BuildingModel() {
