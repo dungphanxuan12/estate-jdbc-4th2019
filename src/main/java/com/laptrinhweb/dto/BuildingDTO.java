@@ -1,74 +1,32 @@
-package com.laptrinhweb.entity;
-
-import com.laptrinhweb.annotation.Column;
-import com.laptrinhweb.annotation.Entity;
+package com.laptrinhweb.dto;
 
 /**
  * @author PhanXuanDung
  *
  */
-@Entity
-public class BuildingEntity extends BaseEntity{
+public class BuildingDTO extends AbstractDTO<BuildingDTO> {
 
-	@Column(name = "name")
 	private String name;
-
-	@Column(name = "ward")
 	private String ward;
-
-	@Column(name = "street")
 	private String street;
-
-	@Column(name = "structure")
 	private String structure;
-
-	@Column(name = "numberofbasement")
 	private Integer numberOfBasement;
-
-	@Column(name = "buildingarea")
 	private Integer buildingArea;
-
-	@Column(name = "costrent")
 	private Integer costRent;
-
-	@Column(name = "costdescription")
 	private String costDescription;
-
-	@Column(name = "servicecost")
 	private String serviceCost;
-
-	@Column(name = "carcost")
 	private String carCost;
-
-	@Column(name = "motobikecost")
 	private String motobikeCost;
-
-	@Column(name = "overtimecost")
 	private String overtimeCost;
-
-	@Column(name = "electricitycost")
 	private String electricityCost;
-
-	@Column(name = "deposit")
 	private String deposit;
-
-	@Column(name = "payment")
 	private String payment;
-
-	@Column(name = "timerent")
 	private String timeRent;
-
-	@Column(name = "timedecorator")
 	private String timeDecorator;
-
-	@Column(name = "managername")
 	private String managerName;
-
-	@Column(name = "managerphone")
 	private String managerPhone;
-
-	@Column(name = "type")
 	private String type;
+	private String[] buildingTypes = new String[] {};
 
 	public String getName() {
 		return name;

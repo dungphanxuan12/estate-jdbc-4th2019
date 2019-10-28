@@ -3,15 +3,15 @@ package com.laptrinhweb.mapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.laptrinhweb.model.BuildingModel;
+import com.laptrinhweb.dto.BuildingDTO;
 
-public class BuildingMapper implements RowMapper<BuildingModel> {
+public class BuildingMapper implements RowMapper<BuildingDTO> {
 
 	@Override
-	public BuildingModel mapRow(ResultSet rs) {
+	public BuildingDTO mapRow(ResultSet rs) {
 
 		try {
-			BuildingModel buildingModel = new BuildingModel();
+			BuildingDTO buildingModel = new BuildingDTO();
 			buildingModel.setName(rs.getString("name"));
 			buildingModel.setStreet(rs.getString("street"));
 			buildingModel.setStructure(rs.getString("structure"));

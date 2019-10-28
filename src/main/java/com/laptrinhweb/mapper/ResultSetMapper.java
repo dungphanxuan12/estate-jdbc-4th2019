@@ -16,6 +16,7 @@ import com.laptrinhweb.annotation.Entity;
 @SuppressWarnings("unchecked")
 public class ResultSetMapper<T> {
 
+	@SuppressWarnings("rawtypes")
 	public List<T> mapRow(ResultSet rs, Class zClass) {
 
 		List<T> results = new ArrayList<>();
@@ -25,9 +26,10 @@ public class ResultSetMapper<T> {
 			if (zClass.isAnnotationPresent(Entity.class)) {
 
 				ResultSetMetaData resultSetMetaData = rs.getMetaData();
-				Field[] fields = zClass.getDeclaredFields();// BuildingEntity get được field name, ward, ...
+				Field[] fields = zClass.getDeclaredFields();// BuildingEntity get được field name, ward, ... trong
+															// zclass
 
-				while (rs.next()) {
+				while (rs.next()) {// lấy từng hàng trong bảng building
 
 					T object = (T) zClass.newInstance();
 
@@ -35,17 +37,15 @@ public class ResultSetMapper<T> {
 					for (int i = 0; i < resultSetMetaData.getColumnCount(); i++) {
 						String columName = resultSetMetaData.getColumnName(i + 1);
 						Object columnValue = rs.getObject(i + 1);
+						// current Class
+						convertResultToEntity(fields, columName, columnValue, object);
+						// parent class
 
-						for (Field field : fields) {
-
-							if (field.isAnnotationPresent(Column.class)) {
-								Column column = field.getAnnotation(Column.class);
-
-								if (column.name().equals(columName) && columName != null) {
-									BeanUtils.setProperty(object, field.getName(), columnValue);
-									break;
-								}
-							}
+						Class parentClass = zClass.getSuperclass();
+						while (parentClass != null) {
+							Field[] fieldParents = parentClass.getDeclaredFields();
+							convertResultToEntity(fieldParents, columName, columnValue, object);
+							parentClass = parentClass.getSuperclass();
 						}
 					}
 					results.add(object);
@@ -55,7 +55,22 @@ public class ResultSetMapper<T> {
 			e.printStackTrace();
 		}
 
-		return null;
+		return results;
 
+	}
+
+	private void convertResultToEntity(Field[] fields, String columName, Object columnValue, T object)
+			throws IllegalAccessException, InvocationTargetException {
+
+		for (Field field : fields) {
+			if (field.isAnnotationPresent(Column.class)) {
+				Column column = field.getAnnotation(Column.class);
+
+				if (column.name().equals(columName) && columnValue != null) {
+					BeanUtils.setProperty(object, field.getName(), columnValue);
+					break;
+				}
+			}
+		}
 	}
 }
