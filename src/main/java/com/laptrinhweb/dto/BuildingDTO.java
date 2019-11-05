@@ -14,6 +14,7 @@ public class BuildingDTO extends AbstractDTO<BuildingDTO> {
 	private Integer buildingArea;
 	private Integer costRent;
 	private String costDescription;
+	private String district;
 	private String serviceCost;
 	private String carCost;
 	private String motobikeCost;
@@ -90,6 +91,14 @@ public class BuildingDTO extends AbstractDTO<BuildingDTO> {
 
 	public void setCostDescription(String costDescription) {
 		this.costDescription = costDescription;
+	}
+
+	public String getDistrict() {
+		return district;
+	}
+
+	public void setDistrict(String district) {
+		this.district = district;
 	}
 
 	public String getServiceCost() {
@@ -186,6 +195,14 @@ public class BuildingDTO extends AbstractDTO<BuildingDTO> {
 
 	public void setType(String type) {
 		this.type = type;
+	}
+
+	public String[] getBuildingTypes() {
+		return buildingTypes;
+	}
+
+	public void setBuildingTypes(String[] buildingTypes) {
+		this.buildingTypes = buildingTypes;
 	}
 
 }

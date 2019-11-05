@@ -28,3 +28,4 @@ public class BuildingAPI extends HttpServlet {
 	}
 
 }
+ 

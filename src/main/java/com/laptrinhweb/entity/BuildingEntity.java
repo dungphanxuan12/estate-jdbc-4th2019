@@ -2,13 +2,15 @@ package com.laptrinhweb.entity;
 
 import com.laptrinhweb.annotation.Column;
 import com.laptrinhweb.annotation.Entity;
+import com.laptrinhweb.annotation.Table;
 
 /**
  * @author PhanXuanDung
  *
  */
 @Entity
-public class BuildingEntity extends BaseEntity{
+@Table(name = "building")
+public class BuildingEntity extends BaseEntity {
 
 	@Column(name = "name")
 	private String name;
@@ -66,6 +68,9 @@ public class BuildingEntity extends BaseEntity{
 
 	@Column(name = "managerphone")
 	private String managerPhone;
+
+	@Column(name = "district")
+	private String district;
 
 	@Column(name = "type")
 	private String type;
@@ -224,6 +229,14 @@ public class BuildingEntity extends BaseEntity{
 
 	public String getType() {
 		return type;
+	}
+
+	public String getDistrict() {
+		return district;
+	}
+
+	public void setDistrict(String district) {
+		this.district = district;
 	}
 
 	public void setType(String type) {

@@ -1,5 +1,7 @@
-package com.laptrinhweb.jdbc;
+package com.laptrinhweb.repository.impl;
 
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -9,8 +11,18 @@ import java.sql.Statement;
 import java.util.List;
 
 import com.laptrinhweb.mapper.ResultSetMapper;
+import com.laptrinhweb.repository.GenericJDBC;
 
-public class AbstractJDBC<T> {
+public class AbstractJDBC<T> implements GenericJDBC<T> {
+
+	private Class<T> zclass;
+
+	@SuppressWarnings("unchecked")
+	public AbstractJDBC() {
+		Type type = getClass().getGenericSuperclass();
+		ParameterizedType parameterizedType = (ParameterizedType) type;
+		zclass = (Class<T>) parameterizedType.getActualTypeArguments()[0];
+	}
 
 	private Connection getConnection() {
 		try {
@@ -24,24 +36,10 @@ public class AbstractJDBC<T> {
 		}
 		return null;
 	}
-	/*
-	 * @SuppressWarnings("hiding") public <T> List<T> query(String sql, RowMapper<T>
-	 * rowMapper, Object... parameters) { List<T> results = new ArrayList<T>();
-	 * 
-	 * Connection conn = getConnection(); PreparedStatement statement = null;
-	 * ResultSet resultSet = null;
-	 * 
-	 * try { statement = conn.prepareStatement(sql); resultSet =
-	 * statement.executeQuery(); if (conn != null) { while (resultSet.next()) {
-	 * results.add(rowMapper.mapRow(resultSet)); } return results; }
-	 * 
-	 * } catch (SQLException e) { System.out.println(e.getMessage()); } finally {
-	 * try { if (conn != null) conn.close();
-	 * 
-	 * } catch (SQLException e) { e.printStackTrace(); } } return null; }
-	 */
 
-	public List<T> query(String sql, Class<T> zclass, Object... parameters) {
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@Override
+	public List query(String sql, Object... parameters) {
 
 		ResultSetMapper<T> resultSetMapper = new ResultSetMapper<T>();
 
@@ -53,14 +51,7 @@ public class AbstractJDBC<T> {
 			statement = conn.prepareStatement(sql);
 			resultSet = statement.executeQuery();
 			if (conn != null) {
-				
-				// set parameter to statement
-				for (int i = 0; i < parameters.length; i++) {
-					int index = i + 1;
-					statement.setObject(index, parameters[i]);
-				}
-				
-				return resultSetMapper.mapRow(resultSet, zclass);
+				return resultSetMapper.mapRow(resultSet, this.zclass);
 			}
 
 		} catch (SQLException e) {
@@ -77,8 +68,8 @@ public class AbstractJDBC<T> {
 		return null;
 	}
 
+	@Override
 	public void update(String sql, Object... parameters) {
-
 		Connection conn = getConnection();
 		PreparedStatement statement = null;
 
@@ -122,10 +113,8 @@ public class AbstractJDBC<T> {
 		}
 	}
 
-	// trả về id
-	// Object truyền được nhiều parameters[] trả về một mảng
+	@Override
 	public Long insert(String sql, Object... parameters) {
-
 		Connection conn = getConnection();
 		PreparedStatement statement = null;
 		ResultSet resultSet = null;
@@ -177,6 +166,12 @@ public class AbstractJDBC<T> {
 				e.printStackTrace();
 			}
 		}
+		return null;
+	}
+
+	@Override
+	public Long insert(T t) {
+
 		return null;
 	}
 

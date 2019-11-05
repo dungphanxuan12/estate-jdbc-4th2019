@@ -2,8 +2,10 @@ package com.laptrinhweb.entity;
 
 import com.laptrinhweb.annotation.Column;
 import com.laptrinhweb.annotation.Entity;
+import com.laptrinhweb.annotation.Table;
 
 @Entity
+@Table(name = "user")
 public class UserEntity extends BaseEntity{
 
 	@Column(name = "username")
