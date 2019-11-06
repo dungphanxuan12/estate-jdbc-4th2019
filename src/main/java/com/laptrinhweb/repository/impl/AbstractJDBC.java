@@ -1,5 +1,6 @@
 package com.laptrinhweb.repository.impl;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.sql.Connection;
@@ -10,6 +11,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 
+import com.laptrinhweb.annotation.Column;
+import com.laptrinhweb.annotation.Table;
 import com.laptrinhweb.mapper.ResultSetMapper;
 import com.laptrinhweb.repository.GenericJDBC;
 
@@ -170,9 +173,126 @@ public class AbstractJDBC<T> implements GenericJDBC<T> {
 	}
 
 	@Override
-	public Long insert(T t) {
+	public Long insert(Object object) {
+		Connection conn = getConnection();
+		PreparedStatement statement = null;
+		ResultSet resultSet = null;
 
+		String sql = createSQLInsert();
+		try {
+			conn.setAutoCommit(false);
+			statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+
+			if (conn != null) {
+				Class<?> zClass = object.getClass();
+				// set parameter to statement
+				Field[] fields = zClass.getDeclaredFields();
+				for (int i = 0; i < fields.length; i++) {
+					int index = i + 1;
+					Field field = fields[i];
+					field.setAccessible(true);// phải set Accessible cho field
+					statement.setObject(index, field.get(object));
+				}
+
+				Class<?> parentClass = zClass.getSuperclass();
+				int indexParent = fields.length + 1;
+				while (parentClass != null) {
+
+					for (int i = 0; i < parentClass.getDeclaredFields().length; i++) {
+						int index = i + 1;
+						Field field = parentClass.getDeclaredFields()[i];
+						field.setAccessible(true);// phải set Accessible cho field
+						statement.setObject(indexParent, field.get(object));
+						indexParent = indexParent + 1;
+					}
+					parentClass = parentClass.getSuperclass();
+				}
+
+				int RowInserted = statement.executeUpdate();
+				conn.commit();
+
+				resultSet = statement.getGeneratedKeys();
+
+				if (RowInserted > 0) {
+					while (resultSet.next()) {
+						Long id = resultSet.getLong(1);
+						return id;
+					}
+
+				}
+			}
+		} catch (SQLException | IllegalArgumentException | IllegalAccessException e) {
+			try {
+
+				if (conn != null)
+					conn.rollback();
+
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		} finally {
+			try {
+
+				if (conn != null)
+					conn.close();
+
+				if (statement != null)
+					statement.close();
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
 		return null;
+	}
+
+	private String createSQLInsert() {
+		// get table name from anotaion
+		String tableName = "";
+
+		if (zclass.isAnnotationPresent(Table.class)) {
+			Table table = zclass.getAnnotation(Table.class);
+			tableName = table.name();
+		}
+
+		StringBuilder fields = new StringBuilder("");
+		StringBuilder params = new StringBuilder("");
+
+		for (Field field : zclass.getDeclaredFields()) {
+			if (fields.length() > 1) {
+				fields.append(",");
+				params.append(",");
+			}
+			if (field.isAnnotationPresent(Column.class)) {
+				Column column = field.getAnnotation(Column.class);
+				fields.append(column.name());
+				params.append("?");
+
+			}
+
+		}
+
+		// check parent class
+		Class<?> parentClass = zclass.getSuperclass();
+		while (parentClass != null) {
+			for (Field field : parentClass.getDeclaredFields()) {
+				if (fields.length() > 1) {
+					fields.append(",");
+					params.append(",");
+				}
+				if (field.isAnnotationPresent(Column.class)) {
+					Column column = field.getAnnotation(Column.class);
+					fields.append(column.name());
+					params.append("?");
+				}
+
+			}
+			parentClass = parentClass.getSuperclass();
+		}
+
+		String sql = "INSERT INTO " + tableName + "(" + fields.toString() + ") VALUES (" + params.toString() + ")";
+
+		return sql;
 	}
 
 }

@@ -41,7 +41,7 @@ public class ResultSetMapper<T> {
 						convertResultToEntity(fields, columName, columnValue, object);
 						// parent class
 
-						Class parentClass = zClass.getSuperclass();
+						Class<?> parentClass = zClass.getSuperclass();
 						while (parentClass != null) {
 							Field[] fieldParents = parentClass.getDeclaredFields();
 							convertResultToEntity(fieldParents, columName, columnValue, object);

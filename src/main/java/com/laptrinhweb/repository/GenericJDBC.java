@@ -10,5 +10,5 @@ public interface GenericJDBC<T> {
 
 	public Long insert(String sql, Object... parameters);
 
-	Long insert(T t);
+	Long insert(Object object);
 }

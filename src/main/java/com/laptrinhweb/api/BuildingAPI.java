@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.laptrinhweb.dto.BuildingDTO;
+import com.laptrinhweb.service.IBuildingService;
+import com.laptrinhweb.service.impl.BuildingService;
 import com.laptrinhweb.utils.HttpUtil;
 
 @WebServlet(urlPatterns = { "/api-admin-building" })
@@ -17,15 +19,23 @@ public class BuildingAPI extends HttpServlet {
 
 	private static final long serialVersionUID = -8514820519252702095L;
 
+	private IBuildingService buildingService;
+
+	public BuildingAPI() {
+		buildingService = new BuildingService();
+	}
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
 		ObjectMapper mapper = new ObjectMapper();
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("application/json");
 		BuildingDTO buildingDTO = HttpUtil.of(request.getReader()).toModel(BuildingDTO.class);
 		// logic
+		buildingDTO = buildingService.save(buildingDTO);
+		
 		mapper.writeValue(response.getOutputStream(), buildingDTO);
 	}
 
 }
- 
