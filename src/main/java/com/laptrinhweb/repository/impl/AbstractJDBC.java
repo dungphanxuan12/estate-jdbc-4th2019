@@ -9,14 +9,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.List;
-
-import javax.swing.text.StyleContext.SmallAttributeSet;
+import java.util.Map;
 
 import com.laptrinhweb.annotation.Column;
 import com.laptrinhweb.annotation.Table;
 import com.laptrinhweb.mapper.ResultSetMapper;
+import com.laptrinhweb.paging.Pageble;
+import com.laptrinhweb.paging.Sorter;
 import com.laptrinhweb.repository.GenericJDBC;
 
 public class AbstractJDBC<T> implements GenericJDBC<T> {
@@ -43,137 +43,137 @@ public class AbstractJDBC<T> implements GenericJDBC<T> {
 		return null;
 	}
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	@Override
-	public List query(String sql, Object... parameters) {
+//	@SuppressWarnings({ "unchecked", "rawtypes" })
+//	@Override
+//	public List query(String sql, Object... parameters) {
+//
+//		ResultSetMapper<T> resultSetMapper = new ResultSetMapper<T>();
+//
+//		Connection conn = getConnection();
+//		PreparedStatement statement = null;
+//		ResultSet resultSet = null;
+//
+//		try {
+//			statement = conn.prepareStatement(sql);
+//			if (conn != null) {
+//				resultSet = statement.executeQuery();
+//				return resultSetMapper.mapRow(resultSet, this.zclass);
+//			}
+//
+//		} catch (SQLException e) {
+//			System.out.println(e.getMessage());
+//		} finally {
+//			try {
+//				if (conn != null)
+//					conn.close();
+//
+//			} catch (SQLException e) {
+//				e.printStackTrace();
+//			}
+//		}
+//		return null;
+//	}
 
-		ResultSetMapper<T> resultSetMapper = new ResultSetMapper<T>();
+//	@Override
+//	public void update(String sql, Object... parameters) {
+//		Connection conn = getConnection();
+//		PreparedStatement statement = null;
+//
+//		try {
+//			conn.setAutoCommit(false);
+//			statement = conn.prepareStatement(sql);
+//
+//			if (conn != null) {
+//
+//				// set parameter to statement
+//				for (int i = 0; i < parameters.length; i++) {
+//					int index = i + 1;
+//					statement.setObject(index, parameters[i]);
+//				}
+//
+//				statement.executeUpdate();
+//				conn.commit();
+//
+//			}
+//		} catch (SQLException e) {
+//			try {
+//
+//				if (conn != null)
+//					conn.rollback();
+//
+//			} catch (SQLException e1) {
+//				e1.printStackTrace();
+//			}
+//		} finally {
+//			try {
+//
+//				if (conn != null)
+//					conn.close();
+//
+//				if (statement != null)
+//					statement.close();
+//
+//			} catch (SQLException e) {
+//				e.printStackTrace();
+//			}
+//		}
+//	}
 
-		Connection conn = getConnection();
-		PreparedStatement statement = null;
-		ResultSet resultSet = null;
-
-		try {
-			statement = conn.prepareStatement(sql);
-			resultSet = statement.executeQuery();
-			if (conn != null) {
-				return resultSetMapper.mapRow(resultSet, this.zclass);
-			}
-
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-		} finally {
-			try {
-				if (conn != null)
-					conn.close();
-
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-		return null;
-	}
-
-	@Override
-	public void update(String sql, Object... parameters) {
-		Connection conn = getConnection();
-		PreparedStatement statement = null;
-
-		try {
-			conn.setAutoCommit(false);
-			statement = conn.prepareStatement(sql);
-
-			if (conn != null) {
-
-				// set parameter to statement
-				for (int i = 0; i < parameters.length; i++) {
-					int index = i + 1;
-					statement.setObject(index, parameters[i]);
-				}
-
-				statement.executeUpdate();
-				conn.commit();
-
-			}
-		} catch (SQLException e) {
-			try {
-
-				if (conn != null)
-					conn.rollback();
-
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			}
-		} finally {
-			try {
-
-				if (conn != null)
-					conn.close();
-
-				if (statement != null)
-					statement.close();
-
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-	}
-
-	@Override
-	public Long insert(String sql, Object... parameters) {
-		Connection conn = getConnection();
-		PreparedStatement statement = null;
-		ResultSet resultSet = null;
-
-		try {
-			conn.setAutoCommit(false);
-			statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-
-			if (conn != null) {
-
-				// set parameter to statement
-				for (int i = 0; i < parameters.length; i++) {
-					int index = i + 1;
-					statement.setObject(index, parameters[i]);
-				}
-
-				int RowInserted = statement.executeUpdate();
-				conn.commit();
-
-				resultSet = statement.getGeneratedKeys();
-
-				if (RowInserted > 0) {
-					while (resultSet.next()) {
-						Long id = resultSet.getLong(1);
-						return id;
-					}
-
-				}
-			}
-		} catch (SQLException e) {
-			try {
-
-				if (conn != null)
-					conn.rollback();
-
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			}
-		} finally {
-			try {
-
-				if (conn != null)
-					conn.close();
-
-				if (statement != null)
-					statement.close();
-
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-		return null;
-	}
+//	@Override
+//	public Long insert(String sql, Object... parameters) {
+//		Connection conn = getConnection();
+//		PreparedStatement statement = null;
+//		ResultSet resultSet = null;
+//
+//		try {
+//			conn.setAutoCommit(false);
+//			statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+//
+//			if (conn != null) {
+//
+//				// set parameter to statement
+//				for (int i = 0; i < parameters.length; i++) {
+//					int index = i + 1;
+//					statement.setObject(index, parameters[i]);
+//				}
+//
+//				int RowInserted = statement.executeUpdate();
+//				conn.commit();
+//
+//				resultSet = statement.getGeneratedKeys();
+//
+//				if (RowInserted > 0) {
+//					while (resultSet.next()) {
+//						Long id = resultSet.getLong(1);
+//						return id;
+//					}
+//
+//				}
+//			}
+//		} catch (SQLException e) {
+//			try {
+//
+//				if (conn != null)
+//					conn.rollback();
+//
+//			} catch (SQLException e1) {
+//				e1.printStackTrace();
+//			}
+//		} finally {
+//			try {
+//
+//				if (conn != null)
+//					conn.close();
+//
+//				if (statement != null)
+//					statement.close();
+//
+//			} catch (SQLException e) {
+//				e.printStackTrace();
+//			}
+//		}
+//		return null;
+//	}
 
 	@Override
 	public Long insert(Object object) {
@@ -433,10 +433,9 @@ public class AbstractJDBC<T> implements GenericJDBC<T> {
 
 			if (conn != null) {
 				statement.setObject(1, id);
+				statement.executeUpdate();
+				conn.commit();
 			}
-
-			statement.executeUpdate();
-			conn.commit();
 
 		} catch (SQLException e) {
 			try {
@@ -478,32 +477,35 @@ public class AbstractJDBC<T> implements GenericJDBC<T> {
 	@SuppressWarnings("hiding")
 	@Override
 	public <T> T findById(Long id) {
-		ResultSetMapper<T> resultSetMapper = new ResultSetMapper<>();
-		List<T> results = new ArrayList<T>();
-		Connection conn = null;
-		PreparedStatement preparedStatement = null;
-		ResultSet resultSet = null;
 
+		Connection conn = getConnection();
+		PreparedStatement statement = null;
+		ResultSet resultSet = null;
+		ResultSetMapper<T> resultSetMapper = new ResultSetMapper<T>();
 		try {
-			conn = getConnection();
-			conn.setAutoCommit(false);
 			String sql = createSQLFindById(id);
-			preparedStatement = conn.prepareStatement(sql);
-			
+			statement = conn.prepareStatement(sql);
+			resultSet = statement.executeQuery();
 			if (conn != null) {
-				preparedStatement.setObject(1, id);
-				resultSet = preparedStatement.executeQuery();
-				results = resultSetMapper.mapRow(resultSet, zclass);
-				return (T) results.get(0);
+				return resultSetMapper.mapRow(resultSet, this.zclass).get(0);
 			}
-			
+
 		} catch (SQLException e) {
-			if (conn != null)
-				try {
-					conn.rollback();
-				} catch (SQLException e1) {
-					e1.printStackTrace();
-				}
+			System.out.println(e.getMessage());
+		} finally {
+			try {
+				if (conn != null)
+					conn.close();
+
+				if (statement != null)
+					statement.close();
+
+				if (resultSet != null)
+					resultSet.close();
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}
@@ -519,6 +521,86 @@ public class AbstractJDBC<T> implements GenericJDBC<T> {
 
 		String sql = "SELECT * FROM " + tableName + " WHERE id = ?";
 		return sql;
+	}
+
+	@Override
+	public List<T> findAll(Map<String, Object> properties, Pageble pageble, Object... where) {
+		Connection conn = getConnection();
+		Statement statement = null;
+		ResultSet resultSet = null;
+		ResultSetMapper<T> resultSetMapper = new ResultSetMapper<T>();
+
+		StringBuilder sql = createSQLFindAll(properties);
+
+		if (where != null && where.length > 0) {
+			sql.append(where[0]);
+		}
+
+		if (pageble != null) {
+			if (pageble.getOffset() != null && pageble.getLimit() != null) {
+				sql.append("LIMIT " + pageble.getOffset() + " , " + pageble.getLimit() + " ");
+			}
+			if (pageble.getSorter() != null) {
+				Sorter sorter = pageble.getSorter();
+				sql.append(" ORDER BY " + sorter.getSortName() + " " + sorter.getSortBy() + " ");
+			}
+
+		}
+		try {
+
+			statement = conn.createStatement();
+			resultSet = statement.executeQuery(sql.toString());
+			if (conn != null) {
+				return resultSetMapper.mapRow(resultSet, this.zclass);
+			}
+
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		} finally {
+			try {
+				if (conn != null)
+					conn.close();
+
+				if (statement != null)
+					statement.close();
+
+				if (resultSet != null)
+					resultSet.close();
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return null;
+	}
+
+	private StringBuilder createSQLFindAll(Map<String, Object> properties) {
+		String tableName = "";
+
+		if (zclass.isAnnotationPresent(Table.class)) {
+			Table table = zclass.getAnnotation(Table.class);
+			tableName = table.name();
+		}
+
+		StringBuilder result = new StringBuilder("SELECT * FROM " + tableName + "WHERE 1=1");
+		if (properties != null && properties.size() > 0) {
+			String[] params = new String[properties.size()];
+			Object[] values = new Object[properties.size()];
+			int i = 0;
+			for (Map.Entry<?, ?> item : properties.entrySet()) {
+				params[i] = (String) item.getKey();
+				values[i] = item.getValue();
+				i++;
+			}
+			for (int j = 0; j < params.length; j++) {
+				if (values[j] instanceof String) {
+					result.append(" AND LOWER(" + params[j] + ") LIKE '%" + values[j] + "%'");
+				} else if (values[j] instanceof Integer) {
+					result.append(" AND " + params[j] + " = " + values[j]);
+				}
+			}
+		}
+		return result;
 	}
 
 }
