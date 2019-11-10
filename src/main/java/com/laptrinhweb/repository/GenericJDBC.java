@@ -8,7 +8,15 @@ public interface GenericJDBC<T> {
 
 	public void update(String sql, Object... parameters);
 
-	public Long insert(String sql, Object... parameters);
+	public Long insert(String sql, Object... parameters);// chưa sử dụng
 
-	Long insert(Object object);
+	public Long insert(Object object);
+
+	public void update(Object object);
+
+	public void delete(Long id);
+
+	@SuppressWarnings("hiding")
+	public <T> T findById(Long id);
+
 }

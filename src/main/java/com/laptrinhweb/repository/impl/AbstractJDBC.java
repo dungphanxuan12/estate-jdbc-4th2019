@@ -9,7 +9,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.swing.text.StyleContext.SmallAttributeSet;
 
 import com.laptrinhweb.annotation.Column;
 import com.laptrinhweb.annotation.Table;
@@ -185,8 +188,9 @@ public class AbstractJDBC<T> implements GenericJDBC<T> {
 
 			if (conn != null) {
 				Class<?> zClass = object.getClass();
-				// set parameter to statement
 				Field[] fields = zClass.getDeclaredFields();
+
+				// set parameter to statement
 				for (int i = 0; i < fields.length; i++) {
 					int index = i + 1;
 					Field field = fields[i];
@@ -199,7 +203,6 @@ public class AbstractJDBC<T> implements GenericJDBC<T> {
 				while (parentClass != null) {
 
 					for (int i = 0; i < parentClass.getDeclaredFields().length; i++) {
-						int index = i + 1;
 						Field field = parentClass.getDeclaredFields()[i];
 						field.setAccessible(true);// phải set Accessible cho field
 						statement.setObject(indexParent, field.get(object));
@@ -292,6 +295,229 @@ public class AbstractJDBC<T> implements GenericJDBC<T> {
 
 		String sql = "INSERT INTO " + tableName + "(" + fields.toString() + ") VALUES (" + params.toString() + ")";
 
+		return sql;
+	}
+
+	@Override
+	public void update(Object object) {
+
+		Connection conn = getConnection();
+		PreparedStatement statement = null;
+
+		String sql = createSQLUpdate();
+		try {
+			conn.setAutoCommit(false);
+			statement = conn.prepareStatement(sql);
+
+			if (conn != null) {
+				Class<?> zClass = object.getClass();
+				// set parameter to statement
+				Field[] fields = zClass.getDeclaredFields();
+				for (int i = 0; i < fields.length; i++) {
+					int index = i + 1;
+					Field field = fields[i];
+					field.setAccessible(true);// phải set Accessible cho field
+					statement.setObject(index, field.get(object));
+				}
+				Object id = null;
+				Class<?> parentClass = zClass.getSuperclass();
+				int indexParent = fields.length + 1;
+				while (parentClass != null) {
+
+					for (int i = 0; i < parentClass.getDeclaredFields().length; i++) {
+						Field field = parentClass.getDeclaredFields()[i];
+						field.setAccessible(true);// phải set Accessible cho field
+						String name = field.getName();
+						if (!name.equals("id")) {
+							statement.setObject(indexParent, field.get(object));
+							indexParent = indexParent + 1;
+						} else {
+							id = field.get(object);
+						}
+					}
+					parentClass = parentClass.getSuperclass();
+				}
+				statement.setObject(indexParent, id);
+				statement.executeUpdate();
+				conn.commit();
+
+			}
+		} catch (SQLException | IllegalArgumentException | IllegalAccessException e) {
+			try {
+
+				if (conn != null)
+					conn.rollback();
+
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		} finally {
+			try {
+
+				if (conn != null)
+					conn.close();
+
+				if (statement != null)
+					statement.close();
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	private String createSQLUpdate() {
+
+		// get table name from anotaion
+		String tableName = "";
+
+		if (zclass.isAnnotationPresent(Table.class)) {
+			Table table = zclass.getAnnotation(Table.class);
+			tableName = table.name();
+		}
+
+		StringBuilder sets = new StringBuilder("");
+		String where = "";
+
+		for (Field field : zclass.getDeclaredFields()) {
+
+			if (field.isAnnotationPresent(Column.class)) {
+				Column column = field.getAnnotation(Column.class);
+				String columnName = column.name();
+				if (!columnName.equals("id")) {
+					if (sets.length() > 1) {
+						sets.append(", ");
+					}
+					sets.append(columnName + "= ?");
+				}
+
+			}
+		}
+
+		// check parent class
+		Class<?> parentClass = zclass.getSuperclass();
+		while (parentClass != null) {
+			for (Field field : parentClass.getDeclaredFields()) {
+				if (field.isAnnotationPresent(Column.class)) {
+					Column column = field.getAnnotation(Column.class);
+					String columnName = column.name();
+					if (!columnName.equals("id")) {
+						if (sets.length() > 1) {
+							sets.append(", ");
+						}
+						sets.append(columnName + "= ?");
+					} else {
+						where = "WHERE " + columnName + "= ?";
+					}
+				}
+			}
+			parentClass = parentClass.getSuperclass();
+		}
+
+		String sql = "UPDATE " + tableName + " SET " + sets.toString() + " " + where;
+
+		return sql;
+	}
+
+	@Override
+	public void delete(Long id) {
+
+		Connection conn = null;
+		PreparedStatement statement = null;
+
+		try {
+			conn = getConnection();
+			conn.setAutoCommit(false);
+			String sql = createSQLDelete();
+			statement = conn.prepareStatement(sql);
+
+			if (conn != null) {
+				statement.setObject(1, id);
+			}
+
+			statement.executeUpdate();
+			conn.commit();
+
+		} catch (SQLException e) {
+			try {
+
+				if (conn != null)
+					conn.rollback();
+
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		} finally {
+			try {
+
+				if (conn != null)
+					conn.close();
+
+				if (statement != null)
+					statement.close();
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	private String createSQLDelete() {
+
+		String tableName = "";
+
+		if (zclass.isAnnotationPresent(Table.class)) {
+			Table table = zclass.getAnnotation(Table.class);
+			tableName = table.name();
+		}
+
+		String sql = "DELETE FROM " + tableName + " WHERE id = ?";
+		return sql;
+	}
+
+	@SuppressWarnings("hiding")
+	@Override
+	public <T> T findById(Long id) {
+		ResultSetMapper<T> resultSetMapper = new ResultSetMapper<>();
+		List<T> results = new ArrayList<T>();
+		Connection conn = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+
+		try {
+			conn = getConnection();
+			conn.setAutoCommit(false);
+			String sql = createSQLFindById(id);
+			preparedStatement = conn.prepareStatement(sql);
+			
+			if (conn != null) {
+				preparedStatement.setObject(1, id);
+				resultSet = preparedStatement.executeQuery();
+				results = resultSetMapper.mapRow(resultSet, zclass);
+				return (T) results.get(0);
+			}
+			
+		} catch (SQLException e) {
+			if (conn != null)
+				try {
+					conn.rollback();
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+		}
+		return null;
+	}
+
+	private String createSQLFindById(Long id) {
+
+		String tableName = "";
+
+		if (zclass.isAnnotationPresent(Table.class)) {
+			Table table = zclass.getAnnotation(Table.class);
+			tableName = table.name();
+		}
+
+		String sql = "SELECT * FROM " + tableName + " WHERE id = ?";
 		return sql;
 	}
 
