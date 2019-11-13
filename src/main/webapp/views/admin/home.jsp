@@ -1,32 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@include file="/common/taglib.jsp"%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<%@include file="/common/admin/header.jsp" %>
 
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>Trang chủ</title>
-</head>
+  <!-- Page Content -->
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 text-center">
+        <h1 class="mt-5">A Bootstrap 4 Starter Template</h1>
+        <p class="lead">Complete with pre-defined file paths and responsive navigation!</p>
+        <ul class="list-unstyled">
+          <li>Bootstrap 4.3.1</li>
+          <li>jQuery 3.4.1</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <!-- Page Content End-->
 
-<body>
-	<div class="container">
-		<h1>Estate Real</h1>
-		  <nav class="class="navbar navbar-dark bg-primary"">
-			<ul class="nav">
-			  <li class="nav-item">
-			    <a class="nav-link active" href="#">Home</a>
-			  </li>
-			  <li class="nav-item">
-			    <a class="nav-link" href="#">Add Building</a>
-			  </li>
-			  <li class="nav-item">
-			    <a class="nav-link" href="#">Search Building</a>
-			  </li>
-			</ul>
-		  </nav>
-		  <img src="<c:url value="/template/img/REstate.jpg"></c:url>" class="img-fluid" alt="Responsive image">
-	</div>
-</body>
 
-</html>
+<%@include file="/common/admin/footer.jsp" %>
