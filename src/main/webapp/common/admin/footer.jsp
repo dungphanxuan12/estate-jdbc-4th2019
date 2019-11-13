@@ -1,37 +1,28 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
-<%@include file="/common/taglib.jsp"%>
-      <footer class="footer">
-        <div class="container-fluid">
-          <nav>
-            <ul>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<div class="footer">
+    <div class="footer-inner">
+        <div class="footer-content">
+						<span class="bigger-120">
+							<span class="blue bolder">Ace</span>
+							Application &copy; 2013-2014
+						</span>
 
-            </ul>
-          </nav>
-          <div class="copyright" id="copyright">
-            &copy;
-            <script>
-              document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))
-            </script>,
-            <a href="#" target="_blank"></a>Coded by REAL ESTATE
-          </div>
+            &nbsp; &nbsp;
+            <span class="action-buttons">
+							<a href="#">
+								<i class="ace-icon fa fa-twitter-square light-blue bigger-150"></i>
+							</a>
+
+							<a href="#">
+								<i class="ace-icon fa fa-facebook-square text-primary bigger-150"></i>
+							</a>
+
+							<a href="#">
+								<i class="ace-icon fa fa-rss-square orange bigger-150"></i>
+							</a>
+						</span>
         </div>
-      </footer>
     </div>
-  </div>
-  <!--   Core JS Files   -->
-  <script src="<c:url value='/template/admin/assets/js/core/jquery.min.js'/>"></script>
-  <script src="<c:url value='/template/admin/assets/js/core/popper.min.js'/>"></script>
-  <script src="<c:url value='/template/admin/assets/js/core/bootstrap.min.js'/>"></script>
-  <script src="<c:url value='/template/admin/assets/js/plugins/perfect-scrollbar.jquery.min.js'/>"></script>
-  <script src="<c:url value='/template/admin/assets/js/plugins/bootstrap-notify.js'/>"></script>
-  <script>
-    $(document).ready(function () {
-      // Javascript method's body can be found in assets/js/demos.js
-      demo.initDashboardPageCharts();
-
-    });
-  </script>
-</body>
-
-</html>
+</div>
