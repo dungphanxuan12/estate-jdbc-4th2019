@@ -10,58 +10,23 @@
 </head>
 
 <body>
-	<div class="main-content">
-		<div class="main-content-inner">
-			<div class="breadcrumbs ace-save-state" id="breadcrumbs">
-				<ul class="breadcrumb">
-					<li><i class="ace-icon fa fa-home home-icon"></i> <a href="#">Trang
-							chủ</a></li>
-				</ul>
-				<!-- /.breadcrumb -->
-			</div>
-			<div class="page-content">
-				<div class="row">
-					<div class="col-xs-12">
-						<!-- PAGE CONTENT BEGINS -->
-						<div class="row">
-							<div class="col-xs-12">
-								<table id="simple-table" class="table table-striped table-bordered table-hover">
-									<thead>
-										<tr>
-											<th class="center"><label class="pos-rel"> <input type="checkbox"
-														class="ace" /> <span class="lbl"></span>
-												</label></th>
-											<th>Tên bất động sản</th>
-											<th>Địa chỉ bất động sản</th>
-										</tr>
-									</thead>
-
-									<tbody>
-										<c:forEach items="${building}" var="item">
-											<tr>
-
-												<td class="center"><label class="pos-rel"> <input type="checkbox"
-															class="ace" /> <span class="lbl"></span>
-													</label></td>
-
-												<td><a href="#">${item.name}</a></td>
-												<td>${item.street}</td>
-
-											</tr>
-
-										</c:forEach>
-									</tbody>
-								</table>
-							</div>
-							<!-- /.span -->
-						</div>
-						<!-- /.row -->
-					</div>
-				</div>
-			</div>
-		</div>
+	<div class="container">
+		<h1>Estate Real</h1>
+		  <nav class="class="navbar navbar-dark bg-primary"">
+			<ul class="nav">
+			  <li class="nav-item">
+			    <a class="nav-link active" href="#">Home</a>
+			  </li>
+			  <li class="nav-item">
+			    <a class="nav-link" href="#">Add Building</a>
+			  </li>
+			  <li class="nav-item">
+			    <a class="nav-link" href="#">Search Building</a>
+			  </li>
+			</ul>
+		  </nav>
+		  <img src="<c:url value="/template/img/REstate.jpg"></c:url>" class="img-fluid" alt="Responsive image">
 	</div>
-	<!-- /.main-content -->
 </body>
 
 </html>

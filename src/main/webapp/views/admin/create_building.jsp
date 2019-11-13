@@ -6,7 +6,7 @@
 
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <title>Trang chủ</title>
+  <title>Add Building</title>
 </head>
 
 <body>
@@ -41,7 +41,7 @@
                           <div class="col-md-4 pl-1">
                             <div class="form-group">
                               <label for="exampleInputEmail1">Quận hiện có</label>
-                              <input type="email" class="form-control">
+                              <input type="text" class="form-control">
                             </div>
                           </div>
                         </div>
@@ -83,7 +83,7 @@
                           <div class="col-md-4 pl-1">
                             <div class="form-group">
                               <label>Giá thuê</label>
-                              <input type="number" class="form-control">
+                              <input type="text" class="form-control">
                             </div>
                           </div>
                         </div>
@@ -103,7 +103,7 @@
                           <div class="col-md-4 pl-1">
                             <div class="form-group">
                               <label>Giá giữ xe máy</label>
-                              <input type="number" class="form-control">
+                              <input type="text" class="form-control">
                             </div>
                           </div>
                         </div>
@@ -123,7 +123,7 @@
                           <div class="col-md-4 pl-1">
                             <div class="form-group">
                               <label>Đặt cọc</label>
-                              <input type="number" class="form-control">
+                              <input type="text" class="form-control">
                             </div>
                           </div>
                         </div>
@@ -143,7 +143,7 @@
                           <div class="col-md-4 pl-1">
                             <div class="form-group">
                               <label>Tên quản lý</label>
-                              <input type="number" class="form-control">
+                              <input type="text" class="form-control">
                             </div>
                           </div>
                         </div>
@@ -163,7 +163,7 @@
                           <div class="col-md-4 pl-1">
                             <div class="form-group">
                               <label>Tên quản lý</label>
-                              <input type="number" class="form-control">
+                              <input type="text" class="form-control">
                             </div>
                           </div>
                         </div>
@@ -171,16 +171,16 @@
                           <div class="col-md-12">
                             <div class="form-group">
                               <label>Loại Tòa Nhà</label>
-                              <div class="form-group form-check-inline">
-                                <div class="custom-control custom-checkbox">
+                              <div class="form-group form-check-inline float-right">
+                                <div class="custom-control custom-checkbox float-right">
                                   <input type="checkbox" class="custom-control-input" id="TANG-TRET" name="example1">
                                   <label class="custom-control-label" for="TANG-TRET">TẦNG TRỆT</label>
                                 </div>
-                                <div class="custom-control custom-checkbox">
+                                <div class="custom-control custom-checkbox float-right">
                                   <input type="checkbox" class="custom-control-input" id="NGUYEN-CAN" name="example1">
                                   <label class="custom-control-label" for="NGUYEN-CAN">NGUYÊN CĂN</label>
                                 </div>
-                                <div class="custom-control custom-checkbox">
+                                <div class="custom-control custom-checkbox float-right">
                                   <input type="checkbox" class="custom-control-input" id="NOI-THAT" name="example1">
                                   <label class="custom-control-label" for="NOI-THAT">NỘI THẤT</label>
                                 </div>

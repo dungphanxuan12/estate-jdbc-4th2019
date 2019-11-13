@@ -1,148 +1,200 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@include file="/common/taglib.jsp"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
+
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Trang chủ</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>Search Building</title>
 </head>
+
 <body>
-	<div class="main-content">
-		<div class="main-content-inner">
-			<div class="breadcrumbs ace-save-state" id="breadcrumbs">
-				<ul class="breadcrumb">
-					<li><i class="ace-icon fa fa-home home-icon"></i> 
-						<a href="#">Trang chủ</a>
-					</li>
-					<li>
-						<a href="#">Tìm kiếm</a>
-					</li>
-				</ul>
-				<!-- /.breadcrumb -->
-			</div>
-			<div class="page-content">
-				<div class="page-header">
-					<h1>
-						Tìm kiếm tòa nhà
-						<small>
-							<i class="ace-icon fa fa-angle-double-right"></i>
-							Bạn có thể tìm kiếm tòa nhà theo nhiều điều kiện
-						</small>
-					</h1>
-				</div><!-- /.page-header -->
-				<div class="row">
-					<div class="col-xs-12">
-						<!-- PAGE CONTENT BEGINS -->
-						<form class="form-horizontal" role="form">
-							<div class="form-group">
-								<div class="col-xs-6">
-									<label for="form-field-1"><b>Tên sản phẩm</b></label> 
-									<input class="form-control" type="text" id="form-field-1" />
-								</div>
-								<div class="col-xs-6">
-									<label for="form-field-2"><b>Diện tích sàn</b></label> 
-									<input class="form-control" type="text" id="form-field-2" />
-								</div>
-							</div>
-							<div class="form-group">
-								<div class="col-xs-4">
-									<label for="form-field-3"><b>Quận hiện có</b></label> 
-									<select class="form-control" id="form-field-3">
-										<option value="">Chọn quận</option>
-										<option value="Quan 1">Quan 1</option>
-										<option value="Quan 2">Quan 2</option>
-										<option value="Quan 3">Quan 3</option>
-										<option value="Quan 4">Quan 4</option>
-										<option value="Quan 5">Quan 5</option>
-										<option value="Quan 6">Quan 6</option>
-										<option value="Quan 7">Quan 7</option>
-										<option value="Quan 8">Quan 8</option>
-										<option value="Quan 9">Quan 9</option>
-										<option value="Quan 10">Quan 10</option>
-										<option value="Quan 11">Quan 11</option>
-										<option value="Quan 12">Quan 12</option>
-									</select>
-								</div>
-								<div class="col-xs-4">
-									<label for="form-field-4"><b>Phường</b></label> 
-									<input class="form-control" type="text" id="form-field-4" />
-								</div>
-								<div class="col-xs-4">
-									<label for="form-field-5"><b>Đường</b></label> 
-									<input class="form-control" type="text" id="form-field-5" />
-								</div>
-							</div>
-							<div class="form-group">
-								<div class="col-xs-4">
-									<label for="form-field-6"><b>Số tầng hầm</b></label> 
-									<input class="form-control" type="text" id="form-field-6" />
-								</div>
-								<div class="col-xs-4">
-									<label for="form-field-8"><b>Kết cấu</b></label> 
-									<input class="form-control" type="text" id="form-field-8" />
-								</div>
-							</div>
-							
-							<div class="form-group">
-								<div class="col-xs-3">
-									<label for="form-field-9"><b>Diện tích từ</b></label> 
-									<input class="form-control" type="text" id="form-field-9" />
-								</div>
-								<div class="col-xs-3">
-									<label for="form-field-10"><b>Diện tích đến</b></label> 
-									<input class="form-control" type="text" id="form-field-10" />
-								</div>
-								<div class="col-xs-3">
-									<label for="form-field-11"><b>Giá thuê từ</b></label> 
-									<input class="form-control" type="text" id="form-field-11" />
-								</div>
-								<div class="col-xs-3">
-									<label for="form-field-12"><b>Giá thuê đến</b></label> 
-									<input class="form-control" type="text" id="form-field-12" />
-								</div>
-							</div>
-							
-							<div class="form-group">
-								<div class="col-xs-4">
-									<label for="form-field-9"><b>Tên quản lý</b></label> 
-									<input class="form-control" type="text" id="form-field-9" />
-								</div>
-								<div class="col-xs-4">
-									<label for="form-field-10"><b>Điện thoại quản lý</b></label> 
-									<input class="form-control" type="text" id="form-field-10" />
-								</div>
-								<div class="col-xs-4">
-									<label for="form-field-11"><b>Chọn nhân viên phụ trách</b></label> 
-									<input class="form-control" type="text" id="form-field-11" />
-								</div>
-							</div>
-							<div class="form-group">
-								<div class="checkbox">
-									<label> <input name="form-field-checkbox"
-										type="checkbox" class="ace" /> <span class="lbl">
-											<b>tầng trệt</b></span>
-									</label>
-								</div>
-								<div class="checkbox">
-									<label> <input name="form-field-checkbox"
-										type="checkbox" class="ace" /> <span class="lbl">
-											<b>nguyên căn</b></span>
-									</label>
-								</div>
-							</div>
-							<div class="form-group">
-								<button type="button" class="btn btn-sm btn-success">
-									<b>Tìm kiếm</b>
-									<i class="ace-icon fa fa-arrow-right icon-on-right bigger-110"></i>
-								</button>
-							</div>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- /.main-content -->
+	<nav aria-label="breadcrumb">
+	  <ol class="breadcrumb">
+		   <li class="breadcrumb-item"><a href="#">Home</a></li>
+		   <li class="breadcrumb-item"><a href="#">Add Building</a></li>
+	   </ol>
+	</nav>
+    <div class="main-content-inner">
+              <div class="row">
+                <div class="col-md-8">
+                  <div class="card">
+                    <div class="card-header">
+                      <h5 class="title">Search Building</h5>
+                    </div>
+                    <div class="card-body">
+                      <form>
+                        <div class="row">
+                          <div class="col-md-5 pr-1">
+                            <div class="form-group">
+                              <label>Tên tòa nhà</label>
+                              <input type="text" class="form-control">
+                            </div>
+                          </div>
+                          <div class="col-md-3 px-1">
+                            <div class="form-group">
+                              <label>Diện tích sàn</label>
+                              <input type="text" class="form-control">
+                            </div>
+                          </div>
+                          <div class="col-md-4 pl-1">
+                            <div class="form-group">
+                              <label for="exampleInputEmail1">Quận hiện có</label>
+                              <input type="text" class="form-control">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-6 pr-1">
+                            <div class="form-group">
+                              <label>Phường</label>
+                              <input type="text" class="form-control">
+                            </div>
+                          </div>
+                          <div class="col-md-6 pl-1">
+                            <div class="form-group">
+                              <label>Đường</label>
+                              <input type="text" class="form-control">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-12">
+                            <div class="form-group">
+                              <label>Kết cấu</label>
+                              <input type="text" class="form-control">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-4 pr-1">
+                            <div class="form-group">
+                              <label>Số tầng hầm</label>
+                              <input type="text" class="form-control">
+                            </div>
+                          </div>
+                          <div class="col-md-4 px-1">
+                            <div class="form-group">
+                              <label>Diện tích</label>
+                              <input type="text" class="form-control">
+                            </div>
+                          </div>
+                          <div class="col-md-4 pl-1">
+                            <div class="form-group">
+                              <label>Giá thuê</label>
+                              <input type="text" class="form-control">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-4 pr-1">
+                            <div class="form-group">
+                              <label>Giá dịch vụ</label>
+                              <input type="text" class="form-control">
+                            </div>
+                          </div>
+                          <div class="col-md-4 px-1">
+                            <div class="form-group">
+                              <label>Giá giữ ô tô</label>
+                              <input type="text" class="form-control">
+                            </div>
+                          </div>
+                          <div class="col-md-4 pl-1">
+                            <div class="form-group">
+                              <label>Giá giữ xe máy</label>
+                              <input type="text" class="form-control">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-4 pr-1">
+                            <div class="form-group">
+                              <label>Phí ngoài giờ</label>
+                              <input type="text" class="form-control">
+                            </div>
+                          </div>
+                          <div class="col-md-4 px-1">
+                            <div class="form-group">
+                              <label>Giá điện</label>
+                              <input type="text" class="form-control">
+                            </div>
+                          </div>
+                          <div class="col-md-4 pl-1">
+                            <div class="form-group">
+                              <label>Đặt cọc</label>
+                              <input type="text" class="form-control">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-4 pr-1">
+                            <div class="form-group">
+                              <label>Thanh toán</label>
+                              <input type="text" class="form-control">
+                            </div>
+                          </div>
+                          <div class="col-md-4 px-1">
+                            <div class="form-group">
+                              <label>Thời gian thuê</label>
+                              <input type="text" class="form-control">
+                            </div>
+                          </div>
+                          <div class="col-md-4 pl-1">
+                            <div class="form-group">
+                              <label>Tên quản lý</label>
+                              <input type="text" class="form-control">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-4 pr-1">
+                            <div class="form-group">
+                              <label>Điện thoại quản lý</label>
+                              <input type="text" class="form-control">
+                            </div>
+                          </div>
+                          <div class="col-md-4 px-1">
+                            <div class="form-group">
+                              <label>Thời gian thuê</label>
+                              <input type="text" class="form-control">
+                            </div>
+                          </div>
+                          <div class="col-md-4 pl-1">
+                            <div class="form-group">
+                              <label>Tên quản lý</label>
+                              <input type="text" class="form-control">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-12">
+                            <div class="form-group">
+                              <label>Loại Tòa Nhà</label>
+                              <div class="form-group form-check-inline float-right">
+                                <div class="custom-control custom-checkbox float-right">
+                                  <input type="checkbox" class="custom-control-input" id="TANG-TRET" name="example1">
+                                  <label class="custom-control-label" for="TANG-TRET">TẦNG TRỆT</label>
+                                </div>
+                                <div class="custom-control custom-checkbox float-right">
+                                  <input type="checkbox" class="custom-control-input" id="NGUYEN-CAN" name="example1">
+                                  <label class="custom-control-label" for="NGUYEN-CAN">NGUYÊN CĂN</label>
+                                </div>
+                                <div class="custom-control custom-checkbox float-right">
+                                  <input type="checkbox" class="custom-control-input" id="NOI-THAT" name="example1">
+                                  <label class="custom-control-label" for="NOI-THAT">NỘI THẤT</label>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                         <button type="button" class="btn btn-primary float-right">Search</button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </div>
 </body>
+
 </html>
