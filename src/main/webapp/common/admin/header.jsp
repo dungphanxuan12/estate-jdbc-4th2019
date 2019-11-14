@@ -10,10 +10,11 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Trang Chủ</title>
+  <title><dec:title default="Trang Chủ"/></title>
 
   <!-- Bootstrap core CSS -->
   <link href="<c:url value="/template/admin/vendor/bootstrap/css/bootstrap.min.css"/>" rel="stylesheet">
+  <script src='https://kit.fontawesome.com/a076d05399.js'></script>
 
 </head>
 
@@ -22,22 +23,19 @@
   <!-- Navigation -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
     <div class="container">
-      <a class="navbar-brand" href="#">Real Estate</a>
+      <a class="navbar-brand" href="<c:url value="/trang-chu" />">Real Estate</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="#">Home
+            <a class="nav-link" href="<c:url value="/trang-chu" />">Home
               <span class="sr-only">(current)</span>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">About</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Services</a>
+            <a class="nav-link" href="<c:url value="/admin-building?action=LIST" />">List Buildings</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">Contact</a>

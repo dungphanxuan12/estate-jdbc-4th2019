@@ -12,7 +12,7 @@ public class RentArea extends BaseEntity {
 	private String value;
 
 	@Column(name = "buildingid")
-	private Long buildingid;
+	private Long buildingId;
 
 	public String getValue() {
 		return value;
@@ -22,12 +22,12 @@ public class RentArea extends BaseEntity {
 		this.value = value;
 	}
 
-	public Long getBuildingid() {
-		return buildingid;
+	public Long getBuildingId() {
+		return buildingId;
 	}
 
-	public void setBuildingid(Long buildingid) {
-		this.buildingid = buildingid;
+	public void setBuildingId(Long buildingId) {
+		this.buildingId = buildingId;
 	}
 
 }

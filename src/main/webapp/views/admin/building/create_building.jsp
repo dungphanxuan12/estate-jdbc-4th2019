@@ -2,9 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@include file="/common/taglib.jsp"%>
 
-<%@include file="/common/admin/header.jsp" %>
-
-
     <div class="main-content-inner">
               <div class="row">
                 <div class="col-md-8">
@@ -201,5 +198,3 @@
                 </div>
               </div>
           </div>
-
-          <%@include file="/common/admin/footer.jsp" %>

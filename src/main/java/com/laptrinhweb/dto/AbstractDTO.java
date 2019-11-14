@@ -15,6 +15,7 @@ public class AbstractDTO<T> {
 	private int page = 1;
 	private String action;
 	List<T> litsResults = new ArrayList<T>();
+	
 
 	public List<T> getLitsResults() {
 		return litsResults;
