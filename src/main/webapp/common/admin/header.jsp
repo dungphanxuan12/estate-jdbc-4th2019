@@ -10,7 +10,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title><dec:title default="Trang Chủ"/></title>
+  <title>Trang Chủ</title>
 
   <!-- Bootstrap core CSS -->
   <link href="<c:url value="/template/admin/vendor/bootstrap/css/bootstrap.min.css"/>" rel="stylesheet">
@@ -19,7 +19,6 @@
 </head>
 
 <body>
-
   <!-- Navigation -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
     <div class="container">
@@ -44,4 +43,6 @@
       </div>
     </div>
   </nav>
+  	<nav class="navbar navbar-light bg-light">
+	</nav>
 <!-- Navigation End-->

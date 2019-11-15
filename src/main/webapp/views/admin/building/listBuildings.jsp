@@ -7,33 +7,43 @@
 <!-- Page Content -->
 <div class="container">
 	<div class="row">
-		<div class="col-lg-12 text-center">
-			<div class="table-responsive-sm">
-				<table class="table table-hover table-dark">
-					<thead>
-						<tr>
-							<th scope="col">Id</th>
-							<th scope="col">Tên Tòa Nhà</th>
-							<th scope="col">edit</th>
-							<th scope="col">delete</th>
-						</tr>
-					</thead>
-
-					<tbody>
-						<tr>
-							<th scope="row">1</th>
-							<td>Mark</td>
-							<td><a class="nav-link" href="<c:url value="/admin-building?action=EDIT" />"><i class='far fa-edit' style="color:green;"></i></a></td>
-							<td><a class="nav-link" href="<c:url value="/admin-building?action=DELETE" />"><i class='fas fa-trash' style="color:red;"></i></a></td>
-						</tr>
-						<tr>
-							<th scope="row">2</th>
-							<td>Jacob</td>
-							<td><a class="nav-link" href="<c:url value="/admin-building?action=EDIT" />"><i class='far fa-edit' style="color:green;"></i></a></td>
-							<td><a class="nav-link" href="<c:url value="/admin-building?action=DELETE" />"><i class='fas fa-trash' style="color:red;"></i></a></td>
-						</tr>
-					</tbody>
-				</table>
+		<div class="col-md-12">
+			<div class="card">
+				<div class="card-header">
+					<h4 class="card-title">List Buildings</h4>
+				</div>
+				<div class="card-body">
+					<div class="table-responsive">
+						<table class="table">
+							<thead class=" text-primary">
+								<th>ID</th>
+								<th>Name</th>
+								<th>ward</th>
+								<th>Street</th>
+								<th>Number of Basement</th>
+								<th class="text-right">Edit</th>
+								<th class="text-right">Delete</th>
+							</thead>
+							<tbody>
+								<tr>
+									<td>1</td>
+									<td>Niger</td>
+									<td>Niger</td>
+									<td>Niger</td>
+									<td>Oud-Turnhout</td>
+									<td class="text-right"><a class="nav-link"
+										href="<c:url value="/admin-building?action=EDIT" />">
+										<i class='far fa-edit' style="color: green;"></i></a>
+									</td>
+									<td class="text-right"><a class="nav-link"
+										href="<c:url value="/admin-building?action=DELETE" />"><i
+											class='fas fa-trash' style="color: red;"></i></a>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>

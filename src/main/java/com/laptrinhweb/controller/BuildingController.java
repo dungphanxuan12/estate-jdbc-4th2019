@@ -22,6 +22,7 @@ public class BuildingController extends HttpServlet {
 
 		if ("LIST".equals(action)) {
 			path = "/views/admin/building/listBuildings.jsp";
+			request.setAttribute("buildings","");
 		} else if ("EDIT".equals(action)) {
 			path = "/views/admin/building/edit_building.jsp";
 		}

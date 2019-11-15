@@ -4,8 +4,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
     <div class="main-content-inner">
-              <div class="row">
-                <div class="col-md-8">
                   <div class="card">
                     <div class="card-header">
                       <h5 class="title">Update Building</h5>
@@ -180,5 +178,3 @@
                     </div>
                   </div>
                 </div>
-              </div>
-          </div>
