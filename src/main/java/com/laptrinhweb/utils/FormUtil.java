@@ -13,7 +13,7 @@ public class FormUtil {
 		T object = null;
 		try {
 			object = clazz.newInstance();
-			BeanUtils.populate(object, request.getParameterMap());
+			BeanUtils.populate(object, request.getParameterMap());//request.getParameterMap() get toàn bộ params trên url
 		} catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
 			e.printStackTrace();
 		}

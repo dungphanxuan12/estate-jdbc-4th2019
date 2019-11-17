@@ -2,8 +2,8 @@ package com.laptrinhweb.service.impl;
 
 import java.sql.Timestamp;
 import java.util.List;
-import java.util.Map;
 
+import com.laptrinhweb.builder.BuildingSearchBuilder;
 import com.laptrinhweb.converter.BuildingConverter;
 import com.laptrinhweb.dto.BuildingDTO;
 import com.laptrinhweb.entity.BuildingEntity;
@@ -32,8 +32,8 @@ public class BuildingService implements IBuildingService {
 	}
 
 	@Override
-	public List<BuildingDTO> findAll(Map<String, Object> properties, Pageble pageble) {
-
+	public List<BuildingDTO> findAll(BuildingSearchBuilder buildingSearchBuilder, Pageble pageble) {
+		// TODO Auto-generated method stub
 		return null;
 	}
 

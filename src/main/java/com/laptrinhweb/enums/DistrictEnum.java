@@ -14,5 +14,10 @@ public enum DistrictEnum {
 	public String getValue() {
 		return value;
 	}
+	
+	/*
+	 * public static void main(String[] args) {
+	 * System.out.println(DistrictEnum.QUAN_1.value); }
+	 */
 
 }

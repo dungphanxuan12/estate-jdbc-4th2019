@@ -1,6 +1,6 @@
 package com.laptrinhweb.dto;
 
-public class UserDTO {
+public class UserDTO extends AbstractDTO<UserDTO>{
 
 	private String userName;
 	private String fullName;

@@ -14,15 +14,15 @@ public class AbstractDTO<T> {
 	private int maxPageItem = 10;
 	private int page = 1;
 	private String action;
-	List<T> litsResults = new ArrayList<T>();
+	List<T> listResults = new ArrayList<T>();
 	
 
-	public List<T> getLitsResults() {
-		return litsResults;
+	public List<T> getListResults() {
+		return listResults;
 	}
 
-	public void setLitsResults(List<T> litsResults) {
-		this.litsResults = litsResults;
+	public void setListResults(List<T> listResults) {
+		this.listResults = listResults;
 	}
 
 	public int getMaxPageItem() {

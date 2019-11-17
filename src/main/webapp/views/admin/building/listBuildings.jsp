@@ -1,3 +1,6 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.List"%>
+<%@page import="com.laptrinhweb.dto.BuildingDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@include file="/common/taglib.jsp"%>
@@ -10,11 +13,17 @@
 		<div class="col-md-12">
 			<div class="card">
 				<div class="card-header">
-					<h4 class="card-title">List Buildings</h4>
+					<h4 class="card-title">List Buildings
+						<a href="#" class="inline-block float-right"><i class='fas fa-building'></i>New Building</a>
+					</h4>
+					
 				</div>
 				<div class="card-body">
 					<div class="table-responsive">
 						<table class="table">
+						<% List<BuildingDTO> buildings = new ArrayList<BuildingDTO>(); 
+						%>
+						
 							<thead class=" text-primary">
 								<th>ID</th>
 								<th>Name</th>
@@ -27,7 +36,7 @@
 							<tbody>
 								<tr>
 									<td>1</td>
-									<td>Niger</td>
+									<td>${buildingModel.name}</td>
 									<td>Niger</td>
 									<td>Niger</td>
 									<td>Oud-Turnhout</td>

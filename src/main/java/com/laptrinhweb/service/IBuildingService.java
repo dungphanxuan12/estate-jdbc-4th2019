@@ -1,14 +1,14 @@
 package com.laptrinhweb.service;
 
 import java.util.List;
-import java.util.Map;
 
+import com.laptrinhweb.builder.BuildingSearchBuilder;
 import com.laptrinhweb.dto.BuildingDTO;
 import com.laptrinhweb.paging.Pageble;
 
 public interface IBuildingService {
-	
+
 	BuildingDTO save(BuildingDTO newBuilding);
-	
-	List<BuildingDTO> findAll(Map<String, Object> properties, Pageble pageble);
+
+	List<BuildingDTO> findAll(BuildingSearchBuilder buildingSearchBuilder, Pageble pageble);
 }
