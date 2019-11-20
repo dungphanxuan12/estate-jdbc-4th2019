@@ -21,6 +21,7 @@
 		<jstl.version>1.2</jstl.version>
 		<mysql.version>8.0.13</mysql.version>
 		<commons-beanutils.version>1.9.3</commons-beanutils.version>
+		<commons-lang3.version>3.4</commons-lang3.version>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
 	</properties>
@@ -94,6 +95,13 @@
 			<artifactId>jackson-core-asl</artifactId>
 			<version>${jackson-core-asl.version}</version>
 		</dependency>
+
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>${commons-lang3.version}</version>
+		</dependency>
+
 
 	</dependencies>
 

@@ -26,7 +26,13 @@ public class BuildingDTO extends AbstractDTO<BuildingDTO> {
 	private String timeDecorator;
 	private String managerName;
 	private String managerPhone;
+	private Integer costRentFrom;
+	private Integer costRentTo;
+	private Integer rentAreaFrom;
+	private Integer rentAreaTo;
 	private String type;
+	private String direction;
+	private String level;
 	private String[] buildingTypes = new String[] {};
 
 	public String getName() {
@@ -205,4 +211,52 @@ public class BuildingDTO extends AbstractDTO<BuildingDTO> {
 		this.buildingTypes = buildingTypes;
 	}
 
+	public Integer getCostRentFrom() {
+		return costRentFrom;
+	}
+
+	public void setCostRentFrom(Integer costRentFrom) {
+		this.costRentFrom = costRentFrom;
+	}
+
+	public Integer getCostRentTo() {
+		return costRentTo;
+	}
+
+	public void setCostRentTo(Integer costRentTo) {
+		this.costRentTo = costRentTo;
+	}
+
+	public Integer getRentAreaFrom() {
+		return rentAreaFrom;
+	}
+
+	public void setRentAreaFrom(Integer rentAreaFrom) {
+		this.rentAreaFrom = rentAreaFrom;
+	}
+
+	public Integer getRentAreaTo() {
+		return rentAreaTo;
+	}
+
+	public void setRentAreaTo(Integer rentAreaTo) {
+		this.rentAreaTo = rentAreaTo;
+	}
+
+	public String getDirection() {
+		return direction;
+	}
+
+	public void setDirection(String direction) {
+		this.direction = direction;
+	}
+
+	public String getLevel() {
+		return level;
+	}
+
+	public void setLevel(String level) {
+		this.level = level;
+	}
+	
 }
