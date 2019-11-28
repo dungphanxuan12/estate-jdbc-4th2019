@@ -26,13 +26,14 @@ public class BuildingDTO extends AbstractDTO<BuildingDTO> {
 	private String timeDecorator;
 	private String managerName;
 	private String managerPhone;
-	private Integer costRentFrom;
-	private Integer costRentTo;
-	private Integer rentAreaFrom;
-	private Integer rentAreaTo;
+	private String costRentFrom;
+	private String costRentTo;
+	private String rentAreaFrom;
+	private String rentAreaTo;
 	private String type;
 	private String direction;
 	private String level;
+	private String rentArea;
 	private String[] buildingTypes = new String[] {};
 
 	public String getName() {
@@ -211,35 +212,35 @@ public class BuildingDTO extends AbstractDTO<BuildingDTO> {
 		this.buildingTypes = buildingTypes;
 	}
 
-	public Integer getCostRentFrom() {
+	public String getCostRentFrom() {
 		return costRentFrom;
 	}
 
-	public void setCostRentFrom(Integer costRentFrom) {
+	public void setCostRentFrom(String costRentFrom) {
 		this.costRentFrom = costRentFrom;
 	}
 
-	public Integer getCostRentTo() {
+	public String getCostRentTo() {
 		return costRentTo;
 	}
 
-	public void setCostRentTo(Integer costRentTo) {
+	public void setCostRentTo(String costRentTo) {
 		this.costRentTo = costRentTo;
 	}
 
-	public Integer getRentAreaFrom() {
+	public String getRentAreaFrom() {
 		return rentAreaFrom;
 	}
 
-	public void setRentAreaFrom(Integer rentAreaFrom) {
+	public void setRentAreaFrom(String rentAreaFrom) {
 		this.rentAreaFrom = rentAreaFrom;
 	}
 
-	public Integer getRentAreaTo() {
+	public String getRentAreaTo() {
 		return rentAreaTo;
 	}
 
-	public void setRentAreaTo(Integer rentAreaTo) {
+	public void setRentAreaTo(String rentAreaTo) {
 		this.rentAreaTo = rentAreaTo;
 	}
 
@@ -258,5 +259,17 @@ public class BuildingDTO extends AbstractDTO<BuildingDTO> {
 	public void setLevel(String level) {
 		this.level = level;
 	}
-	
+
+	public String getAddress() {
+		return this.street + " ," + this.ward;
+	}
+
+	public String getRentArea() {
+		return rentArea;
+	}
+
+	public void setRentArea(String rentArea) {
+		this.rentArea = rentArea;
+	}
+
 }

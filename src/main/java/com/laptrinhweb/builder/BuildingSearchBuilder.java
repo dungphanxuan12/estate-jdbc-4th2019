@@ -5,11 +5,10 @@ public class BuildingSearchBuilder {
 	private String name;
 	private String ward;
 	private String street;
-	private Integer numberOfBasement;
-	private Integer costRentFrom;
-	private Integer costRentTo;
-	private Integer rentAreaFrom;
-	private Integer rentAreaTo;
+	private String costRentFrom;
+	private String costRentTo;
+	private String rentAreaFrom;
+	private String rentAreaTo;
 	private String[] buildingTypes = new String[] {};
 
 	public String getName() {
@@ -24,23 +23,19 @@ public class BuildingSearchBuilder {
 		return street;
 	}
 
-	public Integer getNumberOfBasement() {
-		return numberOfBasement;
-	}
-
-	public Integer getCostRentFrom() {
+	public String getCostRentFrom() {
 		return costRentFrom;
 	}
 
-	public Integer getCostRentTo() {
+	public String getCostRentTo() {
 		return costRentTo;
 	}
 
-	public Integer getRentAreaFrom() {
+	public String getRentAreaFrom() {
 		return rentAreaFrom;
 	}
 
-	public Integer getRentAreaTo() {
+	public String getRentAreaTo() {
 		return rentAreaTo;
 	}
 
@@ -53,7 +48,6 @@ public class BuildingSearchBuilder {
 		this.name = builder.name;
 		this.ward = builder.ward;
 		this.street = builder.street;
-		this.numberOfBasement = builder.numberOfBasement;
 		this.costRentFrom = builder.costRentFrom;
 		this.costRentTo = builder.costRentTo;
 		this.rentAreaFrom = builder.rentAreaFrom;
@@ -66,11 +60,10 @@ public class BuildingSearchBuilder {
 		private String name;
 		private String ward;
 		private String street;
-		private Integer numberOfBasement;
-		private Integer costRentFrom;
-		private Integer costRentTo;
-		private Integer rentAreaFrom;
-		private Integer rentAreaTo;
+		private String costRentFrom;
+		private String costRentTo;
+		private String rentAreaFrom;
+		private String rentAreaTo;
 		private String[] buildingTypes = new String[] {};
 
 		public Builder setName(String name) {
@@ -88,27 +81,22 @@ public class BuildingSearchBuilder {
 			return this;
 		}
 
-		public Builder setNumberOfBasement(Integer numberOfBasement) {
-			this.numberOfBasement = numberOfBasement;
-			return this;
-		}
-
-		public Builder setCostRentFrom(Integer costRentFrom) {
+		public Builder setCostRentFrom(String costRentFrom) {
 			this.costRentFrom = costRentFrom;
 			return this;
 		}
 
-		public Builder setCostRentTo(Integer costRentTo) {
+		public Builder setCostRentTo(String costRentTo) {
 			this.costRentTo = costRentTo;
 			return this;
 		}
 
-		public Builder setRentAreaFrom(Integer rentAreaFrom) {
+		public Builder setRentAreaFrom(String rentAreaFrom) {
 			this.rentAreaFrom = rentAreaFrom;
 			return this;
 		}
 
-		public Builder setRentAreaTo(Integer rentAreaTo) {
+		public Builder setRentAreaTo(String rentAreaTo) {
 			this.rentAreaTo = rentAreaTo;
 			return this;
 		}

@@ -6,14 +6,13 @@
 <%@include file="/common/admin/header.jsp"%>
 
 <!-- Page Content -->
-<div class="container">
-	<div class="row">
-		<div class="col-lg-12 text-center">
-			<h1>Trang Chủ Admin</h1>
+​
+		<div>
+			<h1 class="text-center">Trang Chủ</h1>
+			<img src="<c:url value="/template/img/estate.jpg"/>" class="img-fluid"
+				alt="Responsive image">
 		</div>
-	</div>
-</div>
-<!-- Page Content End-->
 
+<!-- Page Content End-->
 
 <%@include file="/common/admin/footer.jsp"%>
