@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.laptrinhweb.builder.BuildingSearchBuilder;
 import com.laptrinhweb.entity.BuildingEntity;
 import com.laptrinhweb.paging.Pageble;
@@ -17,13 +19,13 @@ public class BuildingRepository extends AbstractJDBC<BuildingEntity> implements 
 	public List<BuildingEntity> findAll(BuildingSearchBuilder builder, Pageble pageble) {
 		Map<String, Object> properties = buildMapSearch(builder);
 		StringBuilder whereClause = new StringBuilder("");
-		if (builder.getCostRentFrom() != null) {
+		if (StringUtils.isNotBlank(builder.getCostRentFrom())) {
 			whereClause.append(" AND costrent >= " + builder.getCostRentFrom() + "");
 		}
-		if (builder.getCostRentTo() != null) {
+		if (StringUtils.isNotBlank(builder.getCostRentTo())) {
 			whereClause.append(" AND costrent <= " + builder.getCostRentTo() + "");
 		}
-		if (builder.getRentAreaFrom() != null || builder.getRentAreaTo() != null) {
+		if (StringUtils.isNotBlank(builder.getRentAreaFrom()) || StringUtils.isNotBlank(builder.getRentAreaTo())) {
 			whereClause.append(" AND EXIST (SELECT * FROM rentarea ra WHERE (ra.buildingid = A.id");
 			if (builder.getRentAreaFrom() != null) {
 				whereClause.append("AND ra.value >= '" + builder.getRentAreaFrom() + "' ");

@@ -62,10 +62,9 @@ public class BuildingController extends HttpServlet {
 				.setName(buildingDTO.getName())
 				.setWard(buildingDTO.getWard())
 				.setStreet(buildingDTO.getStreet())
-				.setRentAreaFrom(buildingDTO.getRentAreaFrom())
-				.setRentAreaTo(buildingDTO.getRentAreaTo())
-				.setCostRentFrom(buildingDTO.getCostRentFrom())
-				.setCostRentTo(buildingDTO.getCostRentTo())
+				.setRentAreaFrom(buildingDTO.getRentAreaFrom()).setRentAreaTo(buildingDTO.getRentAreaTo())
+				.setCostRentFrom(buildingDTO.getCostRentFrom()).setCostRentTo(buildingDTO.getCostRentTo())
+				.setBuildingTypes(buildingDTO.getBuildingTypes())
 				.build();
 		return builder;
 	}
