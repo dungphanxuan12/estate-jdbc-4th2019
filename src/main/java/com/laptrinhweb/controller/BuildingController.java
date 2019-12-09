@@ -46,6 +46,9 @@ public class BuildingController extends HttpServlet {
 			path = "/views/admin/building/listBuildings.jsp";
 
 		} else if ("EDIT".equals(action)) {
+			if (buildingDTO.getId() != null) {
+				buildingDTO = buildingService.findById(buildingDTO.getId());
+			}
 			path = "/views/admin/building/edit_building.jsp";
 		}
 
@@ -58,20 +61,19 @@ public class BuildingController extends HttpServlet {
 	}
 
 	private BuildingSearchBuilder initBuildingBuilder(BuildingDTO buildingDTO) {
-		BuildingSearchBuilder builder = new BuildingSearchBuilder.Builder()
-				.setName(buildingDTO.getName())
-				.setWard(buildingDTO.getWard())
-				.setStreet(buildingDTO.getStreet())
+		BuildingSearchBuilder builder = new BuildingSearchBuilder.Builder().setName(buildingDTO.getName())
+				.setWard(buildingDTO.getWard()).setStreet(buildingDTO.getStreet())
 				.setRentAreaFrom(buildingDTO.getRentAreaFrom()).setRentAreaTo(buildingDTO.getRentAreaTo())
 				.setCostRentFrom(buildingDTO.getCostRentFrom()).setCostRentTo(buildingDTO.getCostRentTo())
-				.setBuildingTypes(buildingDTO.getBuildingTypes())
-				.build();
+				.setBuildingTypes(buildingDTO.getBuildingTypes()).build();
 		return builder;
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+
+		
 	}
 
 }

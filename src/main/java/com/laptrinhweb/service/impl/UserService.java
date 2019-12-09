@@ -10,6 +10,7 @@ public class UserService implements IUserService {
 	@Override
 	public UserDTO save(UserDTO newUser) {
 		UserConverter userConverter = new UserConverter();
+		@SuppressWarnings("unused")
 		UserEntity userEntity = userConverter.convertToEntity(newUser);
 		return null;
 	}

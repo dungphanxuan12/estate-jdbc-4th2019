@@ -39,12 +39,19 @@ public class BuildingConverter {
 				.map(RentArea::getValue).collect(Collectors.toList());
 		if (areas.size() > 0)
 			result.setRentArea(StringUtils.join(areas, ","));
+		//if(StringUtils.isNotBlank(buildingEntity.getType()))
 		return result;
 	}
 
 	public BuildingEntity convertToEntity(BuildingDTO buildingDTO) {
 		ModelMapper modelMapper = new ModelMapper();
 		BuildingEntity result = modelMapper.map(buildingDTO, BuildingEntity.class);
+//		if (StringUtils.isNotBlank(buildingDTO.getNumberOfBasement())) {
+//			result.setNumberOfBasement(Integer.parseInt(buildingDTO.getNumberOfBasement()));
+//		}
+//		if (StringUtils.isNotBlank(Integer.parseInt(buildingDTO.getBuildingArea()))) {
+//			
+//		}
 		return result;
 	}
 

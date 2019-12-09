@@ -25,17 +25,25 @@ public class BuildingAPI extends HttpServlet {
 		buildingService = new BuildingService();
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 
 		ObjectMapper mapper = new ObjectMapper();
-		request.setCharacterEncoding("UTF-8");
-		response.setContentType("application/json");
-		BuildingDTO buildingDTO = HttpUtil.of(request.getReader()).toModel(BuildingDTO.class);
-		// logic
+		req.setCharacterEncoding("UTF-8");
+		resp.setContentType("application/json");
+		BuildingDTO buildingDTO = HttpUtil.of(req.getReader()).toModel(BuildingDTO.class);
 		buildingDTO = buildingService.save(buildingDTO);
-		
-		mapper.writeValue(response.getOutputStream(), buildingDTO);
+		mapper.writeValue(resp.getOutputStream(), buildingDTO);
+	}
+	
+	@Override
+	protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		ObjectMapper mapper = new ObjectMapper();
+		req.setCharacterEncoding("UTF-8");
+		resp.setContentType("application/json");
+		BuildingDTO buildingDTO = HttpUtil.of(req.getReader()).toModel(BuildingDTO.class);
+		//buildingDTO = buildingService.save(buildingDTO);
+		mapper.writeValue(resp.getOutputStream(), buildingDTO);
 	}
 
 }

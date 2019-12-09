@@ -6,15 +6,18 @@ import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.laptrinhweb.builder.BuildingSearchBuilder;
 import com.laptrinhweb.converter.BuildingConverter;
 import com.laptrinhweb.dto.BuildingDTO;
 import com.laptrinhweb.entity.BuildingEntity;
+import com.laptrinhweb.entity.RentArea;
 import com.laptrinhweb.paging.Pageble;
 import com.laptrinhweb.repository.IBuildingRepository;
+import com.laptrinhweb.repository.IRentAreaRepository;
 import com.laptrinhweb.service.IBuildingService;
 
-@SuppressWarnings("unused")
 public class BuildingService implements IBuildingService {
 
 	@Inject
@@ -23,12 +26,23 @@ public class BuildingService implements IBuildingService {
 	@Inject
 	private BuildingConverter buildingConverter;
 
+	@Inject
+	private IRentAreaRepository rentAreaRepository;
+
 	@Override
 	public BuildingDTO save(BuildingDTO buildingDTO) {
 		BuildingEntity buildingEntity = buildingConverter.convertToEntity(buildingDTO);
 		buildingEntity.setCreatedDate(new Timestamp(System.currentTimeMillis()));
+		buildingEntity.setCreatedBy("DUNG");
+		buildingEntity.setType(StringUtils.join(buildingDTO.getBuildingTypes()), ",");
 		Long id = buildingRepository.insert(buildingEntity);
-		return null;
+		for (String item : buildingDTO.getRentArea().split(",")) {
+			RentArea rentArea = new RentArea();
+			rentArea.setValue(item);
+			rentArea.setBuildingId(id);
+			rentAreaRepository.insert(rentArea);
+		}
+		return buildingConverter.convertToDTO(buildingRepository.findById(id));
 	}
 
 	@Override
@@ -43,6 +57,11 @@ public class BuildingService implements IBuildingService {
 //			results.add(buildingDTO);
 //		}
 
+	}
+
+	@Override
+	public BuildingDTO findById(Long id) {
+		return buildingConverter.convertToDTO(buildingRepository.findById(id));
 	}
 
 }

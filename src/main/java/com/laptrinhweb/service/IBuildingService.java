@@ -11,4 +11,6 @@ public interface IBuildingService {
 	BuildingDTO save(BuildingDTO newBuilding);
 
 	List<BuildingDTO> findAll(BuildingSearchBuilder buildingSearchBuilder, Pageble pageble);
+
+	BuildingDTO findById(Long id);
 }

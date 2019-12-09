@@ -261,7 +261,7 @@ public class BuildingEntity extends BaseEntity {
 		this.district = district;
 	}
 
-	public void setType(String type) {
+	public void setType(String type, String string) {
 		this.type = type;
 	}
 	
