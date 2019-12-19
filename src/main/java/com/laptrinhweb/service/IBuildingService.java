@@ -13,4 +13,6 @@ public interface IBuildingService {
 	List<BuildingDTO> findAll(BuildingSearchBuilder buildingSearchBuilder, Pageble pageble);
 
 	BuildingDTO findById(Long id);
+	
+	
 }

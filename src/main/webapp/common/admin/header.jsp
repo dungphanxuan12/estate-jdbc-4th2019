@@ -9,12 +9,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
-
-  <title>Trang Chủ</title>
+  	<c:set var="title" value="${titleReq}" />
+  <title>
+  	${title}
+  </title>
 
   <!-- Bootstrap core CSS -->
   <link href="<c:url value="/template/admin/vendor/bootstrap/css/bootstrap.min.css"/>" rel="stylesheet">
   <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+ <script src="<c:url value="/template/js/jquery/jquery-3.4.1.min.js"/>" type="text/javascript"></script>
 
 </head>
 

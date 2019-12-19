@@ -4,8 +4,6 @@ import java.sql.Timestamp;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.inject.Inject;
-
 import org.apache.commons.lang3.StringUtils;
 
 import com.laptrinhweb.builder.BuildingSearchBuilder;
@@ -16,18 +14,20 @@ import com.laptrinhweb.entity.RentArea;
 import com.laptrinhweb.paging.Pageble;
 import com.laptrinhweb.repository.IBuildingRepository;
 import com.laptrinhweb.repository.IRentAreaRepository;
+import com.laptrinhweb.repository.impl.BuildingRepository;
+import com.laptrinhweb.repository.impl.RentAreaRepository;
 import com.laptrinhweb.service.IBuildingService;
 
 public class BuildingService implements IBuildingService {
 
-	@Inject
-	private IBuildingRepository buildingRepository;
+	//@Inject
+	private IBuildingRepository buildingRepository = new BuildingRepository();
 
-	@Inject
-	private BuildingConverter buildingConverter;
+	//@Inject
+	private BuildingConverter buildingConverter = new BuildingConverter();
 
-	@Inject
-	private IRentAreaRepository rentAreaRepository;
+	//@Inject
+	private IRentAreaRepository rentAreaRepository = new RentAreaRepository();
 
 	@Override
 	public BuildingDTO save(BuildingDTO buildingDTO) {

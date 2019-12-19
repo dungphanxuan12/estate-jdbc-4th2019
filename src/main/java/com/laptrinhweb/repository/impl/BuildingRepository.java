@@ -63,7 +63,7 @@ public class BuildingRepository extends AbstractJDBC<BuildingEntity> implements 
 					field.setAccessible(true);
 					if (field.get(buildingSearchBuilder) != null) {
 						if (field.getName().equals("numberOfBasement") || field.getName().equals("buildingArea")) {
-							result.put(field.getName().toLowerCase(), (Integer) field.get(buildingSearchBuilder));
+							result.put(field.getName().toLowerCase(), Integer.parseInt(((String)field.get(buildingSearchBuilder))));
 						} else {
 							result.put(field.getName().toLowerCase(), field.get(buildingSearchBuilder));
 						}

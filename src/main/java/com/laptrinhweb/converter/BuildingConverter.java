@@ -5,8 +5,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import javax.inject.Inject;
-
 import org.apache.commons.lang3.StringUtils;
 import org.modelmapper.ModelMapper;
 
@@ -15,11 +13,12 @@ import com.laptrinhweb.entity.BuildingEntity;
 import com.laptrinhweb.entity.RentArea;
 import com.laptrinhweb.paging.PageRequest;
 import com.laptrinhweb.repository.IRentAreaRepository;
+import com.laptrinhweb.repository.impl.RentAreaRepository;
 
 public class BuildingConverter {
 
-	@Inject
-	private IRentAreaRepository rentAreaRepository;
+	// @Inject
+	private IRentAreaRepository rentAreaRepository = new RentAreaRepository();
 
 	public BuildingDTO convertToDTO(BuildingEntity buildingEntity) {
 		ModelMapper modelMapper = new ModelMapper();
@@ -39,19 +38,19 @@ public class BuildingConverter {
 				.map(RentArea::getValue).collect(Collectors.toList());
 		if (areas.size() > 0)
 			result.setRentArea(StringUtils.join(areas, ","));
-		//if(StringUtils.isNotBlank(buildingEntity.getType()))
+		if (StringUtils.isNotBlank(buildingEntity.getType())) {
+			result.setBuildingTypes(buildingEntity.getType().split(","));
+		}
 		return result;
 	}
 
 	public BuildingEntity convertToEntity(BuildingDTO buildingDTO) {
 		ModelMapper modelMapper = new ModelMapper();
 		BuildingEntity result = modelMapper.map(buildingDTO, BuildingEntity.class);
-//		if (StringUtils.isNotBlank(buildingDTO.getNumberOfBasement())) {
-//			result.setNumberOfBasement(Integer.parseInt(buildingDTO.getNumberOfBasement()));
-//		}
-//		if (StringUtils.isNotBlank(Integer.parseInt(buildingDTO.getBuildingArea()))) {
-//			
-//		}
+		if (buildingDTO.getNumberOfBasement() != null)
+			result.setNumberOfBasement((buildingDTO.getNumberOfBasement()));
+		if (buildingDTO.getBuildingArea() != null)
+			result.setBuildingArea((buildingDTO.getBuildingArea()));
 		return result;
 	}
 

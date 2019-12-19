@@ -26,12 +26,6 @@ public class BuildingController extends HttpServlet {
 	@Inject
 	private IBuildingService buildingService;
 
-//	public BuildingController() {
-//		if(buildingService == null) {
-//			buildingService = new BuildingService();
-//		}
-//	}
-
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -44,14 +38,15 @@ public class BuildingController extends HttpServlet {
 			Pageble pageble = new PageRequest(null, null, null);
 			buildingDTO.setListResults(buildingService.findAll(builder, pageble));
 			path = "/views/admin/building/listBuildings.jsp";
+			request.setAttribute("titleReq", "Danh sách tòa nhà");
 
 		} else if ("EDIT".equals(action)) {
 			if (buildingDTO.getId() != null) {
 				buildingDTO = buildingService.findById(buildingDTO.getId());
 			}
 			path = "/views/admin/building/edit_building.jsp";
+			request.setAttribute("titleReq", "Thêm tòa nhà");
 		}
-
 		request.setAttribute("buildingModel", buildingDTO);
 		request.setAttribute("districts", DataUtils.getDistricts());
 		request.setAttribute("buildingTypes", DataUtils.getBuildingTypes());
@@ -72,8 +67,6 @@ public class BuildingController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-
-		
 	}
 
 }

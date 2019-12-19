@@ -1,10 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@include file="/common/taglib.jsp"%>
+<c:url var="buildingURL" value="/admin-building"/>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <!-- Page Content -->
 <div class="row">
 	<h4 class="card-title">List Buildings</h4>
+				<div>
+				<a href="<c:url value="/admin-building?action=EDIT" />"><button type="button"
+					class="btn btn-success">Add Building</button></a>
+			</div>
 	<ul class="nav">
 		<li class="nav-item">
 			<div class="col-sm" class="search">
@@ -15,7 +20,6 @@
 					</button>
 				</p>
 				<div class="collapse" id="collapseExample">
-					<div class="card card-body">
 
 						<form action="/jdbc-basic-advance/admin-building?action=LIST" method="GET">
 							<div class="col-xl">
@@ -84,12 +88,15 @@
 
 										<c:forEach var="buildingType" items="${buildingTypes}">
 											<div class="custom-control custom-checkbox float-right">
+											
 												<input type="checkbox" class="custom-control-input"
 													id="${buildingType.key}" name="buildingTypes"
-													value="${buildingType.key}"
-													${fn:contains(fn:join(buildingModel.buildingTypes,','),buildingType.key)?'checked':''}>
+													value="${buildingType.key}"${fn:contains(fn:join(buildingModel.buildingTypes,','),buildingType.key)?'checked':''}>
+												
 												<label class="custom-control-label"
-													for="${buildingType.key}">${buildingType.value}</label>
+													for="${buildingType.key}">${buildingType.value}
+												</label>
+												
 											</div>
 										</c:forEach>
 
@@ -103,17 +110,8 @@
 
 					</div>
 				</div>
-			</div>
 
 		</li>
-
-		<li class="nav-item">
-			<div>
-				<a href="<c:url value="/admin-building?action=EDIT" />"><button type="button"
-					class="btn btn-success">Add Building</button></a>
-			</div>
-		</li>
-
 	</ul>
 
 
@@ -133,21 +131,21 @@
 			</thead>
 			<tbody>
 
-				<c:forEach var="building" items="${buildingModel.listResults}">
+				<c:forEach var="building" items="${buildingModel.getListResults()}">
 					<tr>
 						<td>${building.name}</td>
 						<td>${building.getAddress().toString()}</td>
 						<td>${building.numberOfBasement}</td>
 						<td>${building.costRent}</td>
 						<td>${building.rentArea}</td>
-						<td>${building.type}</td>
+						<td>${building.type}</td><!-- type null  -->
 						<td>${building.managerName}</td>
 						<td>${building.managerPhone}</td>
 						<td class="border-left border-bottom border-primary"><a class="nav-link"
-								href="<c:url value="/admin-building?action=EDIT" />"> <i class='far fa-edit'
+								href="<c:url value="/admin-building?action=EDIT&id=${building.id}" />"> <i class='far fa-edit'
 								style="color: green;"></i></a></td>
 						<td class="border-right border-bottom border-primary"><a class="nav-link"
-								href="<c:url value="/admin-building?action=DELETE" />"><i class='fas fa-trash'
+								href="<c:url value="/admin-building?action=DELETE&id=${building.id}" />"><i class='fas fa-trash'
 								style="color: red;"></i></a></td>
 					</tr>
 				</c:forEach>

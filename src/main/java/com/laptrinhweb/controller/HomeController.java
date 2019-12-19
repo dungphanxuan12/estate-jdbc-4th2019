@@ -19,6 +19,7 @@ public class HomeController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		request.setAttribute("titleReq","Trang Chủ");
 		RequestDispatcher rd = request.getRequestDispatcher("/views/admin/home.jsp");
 		rd.forward(request, response);
 	}
