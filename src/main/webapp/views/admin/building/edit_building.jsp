@@ -25,8 +25,8 @@
 					<div class="col-md-3 px-1">
 						<div class="form-group">
 							<label>Diện tích sàn</label> <input type="text"
-								class="form-control d-inline" name="buildingArea"
-								value="${buildingModel.buildingArea}" id="buildingArea">
+								class="form-control d-inline" name="rentArea"
+								value="${buildingModel.rentArea}" id="rentArea">
 						</div>
 					</div>
 					<div class="col-sm-4 pl-1">
