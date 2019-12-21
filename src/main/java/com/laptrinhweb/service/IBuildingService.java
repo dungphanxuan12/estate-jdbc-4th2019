@@ -9,6 +9,8 @@ import com.laptrinhweb.paging.Pageble;
 public interface IBuildingService {
 
 	BuildingDTO save(BuildingDTO newBuilding);
+	
+	void update(BuildingDTO building,Long id);
 
 	List<BuildingDTO> findAll(BuildingSearchBuilder buildingSearchBuilder, Pageble pageble);
 

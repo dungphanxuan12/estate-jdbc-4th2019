@@ -519,7 +519,7 @@ public class AbstractJDBC<T> implements GenericJDBC<T> {
 			tableName = table.name();
 		}
 
-		String sql = "SELECT * FROM " + tableName + " WHERE id = ?";
+		String sql = "SELECT * FROM " + tableName + " WHERE id = "+id;
 		return sql;
 	}
 
@@ -603,6 +603,52 @@ public class AbstractJDBC<T> implements GenericJDBC<T> {
 			}
 		}
 		return result;
+	}
+
+	@Override
+	public void deleteByProperty(String where) {
+		Connection conn = null;
+		Statement statement = null;
+
+		try {
+			conn = getConnection();
+			conn.setAutoCommit(false);
+			String tableName = "";
+			if(zclass.isAnnotationPresent(Table.class)) {
+				Table table = zclass.getAnnotation(Table.class);
+				tableName = table.name();
+			}
+			String sql = "DELETE FROM "+tableName+" "+ where;
+			statement = conn.createStatement();
+
+			if (conn != null) {
+				statement.execute(sql);
+				conn.commit();
+			}
+
+		} catch (SQLException e) {
+			try {
+
+				if (conn != null)
+					conn.rollback();
+
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		} finally {
+			try {
+
+				if (conn != null)
+					conn.close();
+
+				if (statement != null)
+					statement.close();
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
 	}
 
 }

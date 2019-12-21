@@ -47,6 +47,8 @@ public class BuildingController extends HttpServlet {
 			path = "/views/admin/building/edit_building.jsp";
 			request.setAttribute("titleReq", "Thêm tòa nhà");
 		}
+		
+
 		request.setAttribute("buildingModel", buildingDTO);
 		request.setAttribute("districts", DataUtils.getDistricts());
 		request.setAttribute("buildingTypes", DataUtils.getBuildingTypes());

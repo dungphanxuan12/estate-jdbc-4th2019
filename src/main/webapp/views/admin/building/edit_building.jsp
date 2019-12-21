@@ -157,6 +157,7 @@
 											id="${buildingType.key}" name="buildingTypes"
 											value="${buildingType.key}"
 											${fn:contains(fn:join(buildingModel.buildingTypes,','),buildingType.key)?'checked':''}>
+											
 										<label class="custom-control-label" for="${buildingType.key}">${buildingType.value}</label>
 									</div>
 								</c:forEach>
@@ -220,10 +221,10 @@
 			contentType: 'application/json',
 			dataType : 'json',
 			error : function() {
-				window.location.href="${buildingURL}?action=LIST&message=insert_success";
+				window.location.href="${buildingURL}?action=EDIT&message=error_system/>";
 			},
 			success : function(data) {
-				window.location.href="${buildingURL}?action=EDIT&message=error_system/>";
+				window.location.href="${buildingURL}?action=LIST&message=insert_success";
 			}
 			
 		});
@@ -231,6 +232,21 @@
 	}
 
 	function updateBuilding(data, buildingId) {
+		
+		$.ajax({
+			url : '${buildingAPI}',
+			data : JSON.stringify(data),
+			type : 'PUT',
+			contentType: 'application/json',
+			//dataType : 'json',
+			error : function() {
+				window.location.href="${buildingURL}?action=EDIT&message=error_system/>";
+			},
+			success : function(data) {
+				window.location.href="${buildingURL}?action=LIST&id="+buildingId+"&message=update_success";
+			}
+			
+		});
 
 	}
 </script>

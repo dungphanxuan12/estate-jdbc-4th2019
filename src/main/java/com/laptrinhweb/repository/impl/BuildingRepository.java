@@ -20,20 +20,20 @@ public class BuildingRepository extends AbstractJDBC<BuildingEntity> implements 
 		Map<String, Object> properties = buildMapSearch(builder);
 		StringBuilder whereClause = new StringBuilder("");
 		if (StringUtils.isNotBlank(builder.getCostRentFrom())) {
-			whereClause.append(" AND costrent >= " + builder.getCostRentFrom() + "");
+			whereClause.append(" AND costrent >= " + builder.getCostRentFrom() + " ");
 		}
 		if (StringUtils.isNotBlank(builder.getCostRentTo())) {
 			whereClause.append(" AND costrent <= " + builder.getCostRentTo() + "");
 		}
 		if (StringUtils.isNotBlank(builder.getRentAreaFrom()) || StringUtils.isNotBlank(builder.getRentAreaTo())) {
-			whereClause.append(" AND EXIST (SELECT * FROM rentarea ra WHERE (ra.buildingid = A.id");
+			whereClause.append(" AND EXIST (SELECT * FROM rentarea ra WHERE (ra.buildingid = A.id ");
 			if (builder.getRentAreaFrom() != null) {
-				whereClause.append("AND ra.value >= '" + builder.getRentAreaFrom() + "' ");
+				whereClause.append(" AND ra.value >= " + builder.getRentAreaFrom() + " ");
 			}
 			if (builder.getRentAreaTo() != null) {
-				whereClause.append("AND ra.value <= '" + builder.getRentAreaTo() + "' ");
+				whereClause.append(" AND ra.value <= " + builder.getRentAreaTo() + " ");
 			}
-			whereClause.append("))");
+			whereClause.append(" ))");
 
 		}
 		if (builder.getBuildingTypes().length > 0) {
@@ -47,7 +47,7 @@ public class BuildingRepository extends AbstractJDBC<BuildingEntity> implements 
 
 			// JAVA 8
 			Arrays.stream(builder.getBuildingTypes()).filter(item -> !item.equals(builder.getBuildingTypes()[0]))
-					.forEach(item -> whereClause.append("OR A.type LIKE '%" + item + "%'"));
+					.forEach(item -> whereClause.append(" OR A.type LIKE '%" + item + "%'"));
 			whereClause.append(" )");
 		}
 		return super.findAll(properties, pageble, whereClause.toString());

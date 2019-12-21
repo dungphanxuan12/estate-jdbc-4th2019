@@ -91,15 +91,15 @@
 											
 												<input type="checkbox" class="custom-control-input"
 													id="${buildingType.key}" name="buildingTypes"
-													value="${buildingType.key}"${fn:contains(fn:join(buildingModel.buildingTypes,','),buildingType.key)?'checked':''}>
-												
+													value="${buildingType.key}"
+													${fn:contains(fn:join(buildingModel.buildingTypes, ','),buildingType.key) ? 'checked' : ''}>
 												<label class="custom-control-label"
 													for="${buildingType.key}">${buildingType.value}
 												</label>
 												
 											</div>
+											
 										</c:forEach>
-
 									</div>
 								</div>
 							</div>

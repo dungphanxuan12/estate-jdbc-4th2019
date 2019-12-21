@@ -42,8 +42,8 @@ public class BuildingAPI extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		resp.setContentType("application/json");
 		BuildingDTO buildingDTO = HttpUtil.of(req.getReader()).toModel(BuildingDTO.class);
-		//buildingDTO = buildingService.save(buildingDTO);
-		mapper.writeValue(resp.getOutputStream(), buildingDTO);
+		buildingService.update(buildingDTO,buildingDTO.getId());
+		mapper.writeValue(resp.getOutputStream(), "{}");
 	}
 
 }

@@ -20,13 +20,13 @@ import com.laptrinhweb.service.IBuildingService;
 
 public class BuildingService implements IBuildingService {
 
-	//@Inject
+	// @Inject
 	private IBuildingRepository buildingRepository = new BuildingRepository();
 
-	//@Inject
+	// @Inject
 	private BuildingConverter buildingConverter = new BuildingConverter();
 
-	//@Inject
+	// @Inject
 	private IRentAreaRepository rentAreaRepository = new RentAreaRepository();
 
 	@Override
@@ -34,7 +34,7 @@ public class BuildingService implements IBuildingService {
 		BuildingEntity buildingEntity = buildingConverter.convertToEntity(buildingDTO);
 		buildingEntity.setCreatedDate(new Timestamp(System.currentTimeMillis()));
 		buildingEntity.setCreatedBy("DUNG");
-		buildingEntity.setType(StringUtils.join(buildingDTO.getBuildingTypes()), ",");
+		buildingEntity.setType(StringUtils.join(buildingDTO.getBuildingTypes(), ","));
 		Long id = buildingRepository.insert(buildingEntity);
 		for (String item : buildingDTO.getRentArea().split(",")) {
 			RentArea rentArea = new RentArea();
@@ -62,6 +62,30 @@ public class BuildingService implements IBuildingService {
 	@Override
 	public BuildingDTO findById(Long id) {
 		return buildingConverter.convertToDTO(buildingRepository.findById(id));
+	}
+
+	@Override
+	public void update(BuildingDTO building, Long id) {
+		BuildingEntity oldBuilding = buildingRepository.findById(id);
+		BuildingEntity newBuilding = buildingConverter.convertToEntity(building);
+		newBuilding.setCreatedBy(oldBuilding.getCreatedBy());
+		newBuilding.setCreatedDate(oldBuilding.getCreatedDate());
+		// rentArea
+		updateRenarea(building.getRentArea(), id);
+		newBuilding.setType(StringUtils.join(building.getBuildingTypes(), ","));
+		buildingRepository.update(newBuilding);
+	}
+
+	private void updateRenarea(String rentAreaStr, Long buildingId) {
+		rentAreaRepository.deleteByBuilding(buildingId);
+		// insert rent area
+		for (String item : rentAreaStr.split(",")) {
+			RentArea rentArea = new RentArea();
+			rentArea.setBuildingId(buildingId);
+			rentArea.setValue(item);
+			rentAreaRepository.insert(rentAreaStr);
+		}
+
 	}
 
 }

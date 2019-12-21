@@ -21,6 +21,8 @@ public interface GenericJDBC<T> {
 
 	@SuppressWarnings("hiding")
 	public <T> T findById(Long id);
+	
+	void deleteByProperty(String where);
 
 	List<T> findAll(Map<String,Object> properties,Pageble pageble,Object...where);
 
