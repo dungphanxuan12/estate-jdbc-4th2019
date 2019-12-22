@@ -2,23 +2,37 @@
 	pageEncoding="UTF-8"%>
 <%@include file="/common/taglib.jsp"%>
 <c:url var="buildingURL" value="/admin-building"/>
+<c:url var="buildingAPI" value="/api-admin-building"/>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <!-- Page Content -->
 <div class="row">
-	<h4 class="card-title">List Buildings</h4>
-				<div>
-				<a href="<c:url value="/admin-building?action=EDIT" />"><button type="button"
+<div class="pos-f-t">
+  <div class="collapse" id="navbarToggleExternalContent">
+    <div class="bg-dark p-4">
+     <!--  <h5 class="text-white h4">List Buildings</h5> -->
+      <span class="text-muted"><a href="<c:url value="/admin-building?action=EDIT" />"><button type="button"
 					class="btn btn-success">Add Building</button></a>
-			</div>
-	<ul class="nav">
-		<li class="nav-item">
-			<div class="col-sm" class="search">
-				<p>
-					<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample"
+		</span>
+		<span class="text-muted">
+			<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample"
 						aria-expanded="false" aria-controls="collapseExample">
 						Search
 					</button>
-				</p>
+		</span>
+    </div>
+  </div>
+  <nav class="navbar navbar-dark bg-dark">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  </nav>
+</div>
+			
+			
+			
+	<ul class="nav">
+		<li class="nav-item">
+			<div class="col-sm">
 				<div class="collapse" id="collapseExample">
 
 						<form action="/jdbc-basic-advance/admin-building?action=LIST" method="GET">
@@ -119,6 +133,9 @@
 	<div class="table-responsive-lg border-bottom border-dark">
 		<table class="table">
 			<thead class="thead-dark">
+				<th>
+					<input type="checkbox" value="" id="checkbox-all">
+				</th>
 				<th>Tên Tòa Nhà</th>
 				<th>Địa Chỉ</th>
 				<th>Số Tầng Hầm</th>
@@ -127,12 +144,18 @@
 				<th>Loại Tòa Nhà</th>
 				<th>Tên Quản Lý</th>
 				<th>SĐT Quản Lý</th>
-				<th colspan="2" class="bg-primary text-center">Actions</th>
+				<th>Actions</th>
+				<th>						
+					<button type="button" class="btn btn-success" id="btn-delete">
+							<i class='fas fa-trash'style="color: red;"></i>
+					</button>
+				</th>
 			</thead>
 			<tbody>
 
 				<c:forEach var="building" items="${buildingModel.getListResults()}">
 					<tr>
+						<td><input type="checkbox" value="${building.id}" id="checkbox-id-${building.id}"></td>
 						<td>${building.name}</td>
 						<td>${building.getAddress().toString()}</td>
 						<td>${building.numberOfBasement}</td>
@@ -141,12 +164,10 @@
 						<td>${building.type}</td><!-- type null  -->
 						<td>${building.managerName}</td>
 						<td>${building.managerPhone}</td>
-						<td class="border-left border-bottom border-primary"><a class="nav-link"
-								href="<c:url value="/admin-building?action=EDIT&id=${building.id}" />"> <i class='far fa-edit'
-								style="color: green;"></i></a></td>
-						<td class="border-right border-bottom border-primary"><a class="nav-link"
-								href="<c:url value="/admin-building?action=DELETE&id=${building.id}" />"><i class='fas fa-trash'
-								style="color: red;"></i></a></td>
+						<td class="border-left border-bottom"><a class="nav-link"
+								href="<c:url value="/admin-building?action=EDIT&id=${building.id}" />"> 
+								<i class='far fa-edit'style="color: green;"></i></a>
+						</td>
 					</tr>
 				</c:forEach>
 			</tbody>
@@ -156,3 +177,34 @@
 	<div class="col-sm"></div>
 </div>
 <!-- Page Content End-->
+<script>
+	$('#btn-delete').click(function() {
+		var dataArray = $('tbody input[type=checkbox]:checked').map(function() {
+			return $(this).val();
+		}).get();
+		var data = {};
+		data['ids'] = dataArray;
+		deleteBuilding(data);
+	});
+
+function deleteBuilding(data) {
+	$.ajax({
+		url : '${buildingAPI}',
+		data : JSON.stringify(data),
+		type : 'DELETE',
+		contentType: 'application/json',
+		dataType : 'json',
+		error : function() {
+			window.location.href="${buildingURL}?action=LIST&message=error_system";
+		},
+		success : function() {
+			window.location.href="${buildingURL}?action=LIST&message=delete_success";
+		}
+		
+	});
+
+}
+
+
+
+</script>

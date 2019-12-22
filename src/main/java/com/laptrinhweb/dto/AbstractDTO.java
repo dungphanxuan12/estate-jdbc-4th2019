@@ -15,6 +15,7 @@ public class AbstractDTO<T> {
 	private int page = 1;
 	private String action;
 	List<T> listResults = new ArrayList<T>();
+	private Long[] ids;
 	
 
 	public List<T> getListResults() {
@@ -87,6 +88,14 @@ public class AbstractDTO<T> {
 
 	public void setModifiedDate(Timestamp modifiedDate) {
 		this.modifiedDate = modifiedDate;
+	}
+
+	public Long[] getIds() {
+		return ids;
+	}
+
+	public void setIds(Long[] ids) {
+		this.ids = ids;
 	}
 
 }

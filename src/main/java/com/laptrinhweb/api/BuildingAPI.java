@@ -45,5 +45,15 @@ public class BuildingAPI extends HttpServlet {
 		buildingService.update(buildingDTO,buildingDTO.getId());
 		mapper.writeValue(resp.getOutputStream(), "{}");
 	}
+	
+	@Override
+	protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		ObjectMapper mapper = new ObjectMapper();
+		req.setCharacterEncoding("UTF-8");
+		resp.setContentType("application/json");
+		BuildingDTO buildingDTO = HttpUtil.of(req.getReader()).toModel(BuildingDTO.class);
+		buildingService.delete(buildingDTO.getIds());
+		mapper.writeValue(resp.getOutputStream(), "{}");
+	}
 
 }
