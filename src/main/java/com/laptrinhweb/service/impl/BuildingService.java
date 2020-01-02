@@ -96,4 +96,9 @@ public class BuildingService implements IBuildingService {
 		}
 	}
 
+	@Override
+	public int getTotalItem(BuildingSearchBuilder builder) {
+		return buildingRepository.countBuildingByProperty(builder);
+	}
+
 }

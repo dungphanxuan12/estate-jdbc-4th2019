@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.laptrinhweb.paging.Pageble;
 
+@SuppressWarnings("hiding")
 public interface GenericJDBC<T> {
 
 //	public List<T> query(String sql, Object... parameters);
@@ -19,11 +20,12 @@ public interface GenericJDBC<T> {
 
 	public void delete(Long id);
 
-	@SuppressWarnings("hiding")
 	public <T> T findById(Long id);
 	
 	void deleteByProperty(String where);
 
 	List<T> findAll(Map<String,Object> properties,Pageble pageble,Object...where);
+	
+	int countByProperty(Map<String, Object> properties, Object... where);
 
 }

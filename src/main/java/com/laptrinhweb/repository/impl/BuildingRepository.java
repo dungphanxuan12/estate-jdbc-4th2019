@@ -18,6 +18,42 @@ public class BuildingRepository extends AbstractJDBC<BuildingEntity> implements 
 	@Override
 	public List<BuildingEntity> findAll(BuildingSearchBuilder builder, Pageble pageble) {
 		Map<String, Object> properties = buildMapSearch(builder);
+		StringBuilder whereClause = buildWhereClause(builder);
+		return super.findAll(properties, pageble, whereClause.toString());
+	}
+
+	private Map<String, Object> buildMapSearch(BuildingSearchBuilder buildingSearchBuilder) {
+		Map<String, Object> result = new HashMap<String, Object>();
+		try {
+			Field[] fields = BuildingSearchBuilder.class.getDeclaredFields();
+			for (Field field : fields) {
+				if (!"".equals(field.getName()) && !field.getName().startsWith("costRent")
+						&& !field.getName().startsWith("rentArea")) {
+					field.setAccessible(true);
+					if (field.get(buildingSearchBuilder) != null) {
+						if (field.getName().equals("numberOfBasement") || field.getName().equals("buildingArea")) {
+							result.put(field.getName().toLowerCase(),
+									Integer.parseInt(((String) field.get(buildingSearchBuilder))));
+						} else {
+							result.put(field.getName().toLowerCase(), field.get(buildingSearchBuilder));
+						}
+					}
+				}
+			}
+		} catch (IllegalArgumentException |IllegalAccessException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	@Override
+	public int countBuildingByProperty(BuildingSearchBuilder builder) {
+		Map<String, Object> properties = buildMapSearch(builder);
+		StringBuilder whereClause = buildWhereClause(builder);
+		return countByProperty(properties, whereClause.toString());
+	}
+
+	private StringBuilder buildWhereClause(BuildingSearchBuilder builder) {
 		StringBuilder whereClause = new StringBuilder("");
 		if (StringUtils.isNotBlank(builder.getCostRentFrom())) {
 			whereClause.append(" AND costrent >= " + builder.getCostRentFrom() + " ");
@@ -50,31 +86,7 @@ public class BuildingRepository extends AbstractJDBC<BuildingEntity> implements 
 					.forEach(item -> whereClause.append(" OR A.type LIKE '%" + item + "%'"));
 			whereClause.append(" )");
 		}
-		return super.findAll(properties, pageble, whereClause.toString());
+		return whereClause;
 	}
 
-	private Map<String, Object> buildMapSearch(BuildingSearchBuilder buildingSearchBuilder) {
-		Map<String, Object> result = new HashMap<String, Object>();
-		try {
-			Field[] fields = BuildingSearchBuilder.class.getDeclaredFields();
-			for (Field field : fields) {
-				if (!"".equals(field.getName()) && !field.getName().startsWith("costRent")
-						&& !field.getName().startsWith("rentArea")) {
-					field.setAccessible(true);
-					if (field.get(buildingSearchBuilder) != null) {
-						if (field.getName().equals("numberOfBasement") || field.getName().equals("buildingArea")) {
-							result.put(field.getName().toLowerCase(), Integer.parseInt(((String)field.get(buildingSearchBuilder))));
-						} else {
-							result.put(field.getName().toLowerCase(), field.get(buildingSearchBuilder));
-						}
-					}
-				}
-			}
-		} catch (IllegalArgumentException |
-
-				IllegalAccessException e) {
-			e.printStackTrace();
-		}
-		return result;
-	}
 }

@@ -35,7 +35,7 @@
 			<div class="col-sm">
 				<div class="collapse" id="collapseExample">
 
-						<form action="/jdbc-basic-advance/admin-building?action=LIST" method="GET">
+						<form action="/jdbc-basic-advance/admin-building?action=LIST&page=1&maxPageItem=2" method="GET" id="form-building">
 							<div class="col-xl">
 								<div class="col-md-5 pr-1">
 									<div class="form-group">
@@ -120,6 +120,8 @@
 
 							<button type="submit" class="btn btn-primary float-right" name="action"
 								value="LIST">Search</button>
+								<input type="hidden" value="" id="page" name="page"/>
+								<input type="hidden" value="" id="maxPageItem" name="maxPageItem"/>
 						</form>
 
 					</div>
@@ -172,11 +174,39 @@
 				</c:forEach>
 			</tbody>
 		</table>
+		<div>
+			<nav aria-label="Page navigation">
+       			 <ul class="pagination" id="pagination"></ul>
+    		</nav>
+		</div>
 	</div>
 	<!-- search begin -->
 	<div class="col-sm"></div>
 </div>
 <!-- Page Content End-->
+<script type="text/javascript">
+	var totalPage = ${buildingModel.totalPage};
+	var currentPage = ${buildingModel.page};
+
+    $(function () {
+        window.pagObj = $('#pagination').twbsPagination({
+            totalPages: totalPage,
+            visiblePages: 5,
+            startPage: currentPage,
+            onPageClick: function (event, page) {
+                console.info(page + ' (from options)');
+                if(currentPage !== page){
+                	$('#page').val(page);
+                	$('#maxPageItem').val(2);
+                	 $('#form-building').submit();
+                }
+               
+            }
+        }).on('page', function (event, page) {
+            console.info(page + ' (from event listening)');
+        });
+    });
+</script>
 <script>
 	$('#btn-delete').click(function() {
 		var dataArray = $('tbody input[type=checkbox]:checked').map(function() {
