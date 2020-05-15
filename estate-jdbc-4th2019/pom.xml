@@ -120,13 +120,6 @@
 
 	</dependencies>
 
-
-
-
-
-
-
-
 	<build>
 		<plugins>
 			<plugin>
