@@ -4,7 +4,8 @@ import com.laptrinhwebrework.annotation.Column;
 import com.laptrinhwebrework.annotation.Entity;
 
 @Entity
-public class BuildingEntity {
+public class BuildingEntity extends BaseEntity {
+
 	@Column(name = "name")
 	private String name;
 

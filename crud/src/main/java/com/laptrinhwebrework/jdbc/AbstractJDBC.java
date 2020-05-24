@@ -6,11 +6,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import com.laptrinhwebrework.mapper.Rowmapper;
+import com.laptrinhwebrework.mapper.ResultSetMapper;
 
 /**
  * The AbstractJDBC Class
@@ -20,7 +19,7 @@ import com.laptrinhwebrework.mapper.Rowmapper;
  * @version 1.0
  * @since 2020-05-14
  */
-public class AbstractJDBC {
+public class AbstractJDBC <T>{
 
 	public Connection getConnection() {
 		ResourceBundle resourceBundle = ResourceBundle.getBundle("application");
@@ -37,8 +36,42 @@ public class AbstractJDBC {
 		return null;
 	}
 
-	public <T> List<T> query(String sql, Rowmapper<T> rowMapper, Object... params) {
-		List<T> result = new ArrayList<T>();
+//	public <T> List<T> query(String sql, Rowmapper<T> rowMapper, Object... params) {
+//		List<T> result = new ArrayList<T>();
+//		Connection conn = null;
+//		PreparedStatement statement = null;
+//		ResultSet resultSet = null;
+//		try {
+//			conn = getConnection();
+//			conn.setAutoCommit(false);
+//			statement = conn.prepareStatement(sql);
+//			resultSet = statement.executeQuery();
+//			if (conn != null) {
+//				while (resultSet.next()) {
+//					result.add(rowMapper.maprow(resultSet));
+//				}
+//			}
+//			return result;
+//		} catch (SQLException e) {
+//			System.out.println(e.getMessage());
+//		} finally {
+//			try {
+//				if (conn != null) {
+//					conn.close();
+//				}
+//				if (statement != null) {
+//					statement.close();
+//				}
+//			} catch (SQLException e) {
+//				e.printStackTrace();
+//			}
+//		}
+//		return null;
+//	}
+
+	@SuppressWarnings("hiding")
+	public <T> List<T> query(String sql, Class<T> zClass, Object... params) {
+		ResultSetMapper<T> resultSetMapper = new ResultSetMapper<T>();
 		Connection conn = null;
 		PreparedStatement statement = null;
 		ResultSet resultSet = null;
@@ -48,11 +81,9 @@ public class AbstractJDBC {
 			statement = conn.prepareStatement(sql);
 			resultSet = statement.executeQuery();
 			if (conn != null) {
-				while (resultSet.next()) {
-					result.add(rowMapper.maprow(resultSet));
-				}
+				return resultSetMapper.mapRow(resultSet, zClass);
 			}
-			return result;
+
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		} finally {

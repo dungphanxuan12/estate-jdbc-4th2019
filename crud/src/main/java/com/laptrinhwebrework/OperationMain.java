@@ -2,18 +2,17 @@ package com.laptrinhwebrework;
 
 import java.util.List;
 
+import com.laptrinhwebrework.dto.BuildingDTO;
+import com.laptrinhwebrework.entity.BuildingEntity;
 import com.laptrinhwebrework.jdbc.AbstractJDBC;
-import com.laptrinhwebrework.mapper.BuildingMapper;
-import com.laptrinhwebrework.model.Building;
 
 public class OperationMain {
 
 	public static void main(String[] args) {
-
-		AbstractJDBC abstractJDBC = new AbstractJDBC();
+		AbstractJDBC<BuildingDTO> abstractJDBC = new AbstractJDBC<BuildingDTO>();
 		String sql = "SELECT * FROM building";
-		List<Building> buildings = abstractJDBC.query(sql, new BuildingMapper());
-		System.out.println(buildings.get(0).getName());
+		List<BuildingEntity> buildings = abstractJDBC.query(sql, BuildingEntity.class);
+		System.out.println(".............");
 	}
 
 }

@@ -3,7 +3,7 @@ package com.laptrinhwebrework.mapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.laptrinhwebrework.model.Building;
+import com.laptrinhwebrework.dto.BuildingDTO;
 
 /**
  * The BuildingMapper Class implements a Rowmapper Interface
@@ -13,13 +13,13 @@ import com.laptrinhwebrework.model.Building;
  * @version 1.0
  * @since 2020-05-14
  */
-public class BuildingMapper implements Rowmapper<Building> {
+public class BuildingMapper implements Rowmapper<BuildingDTO> {
 
 	@Override
-	public Building maprow(ResultSet resultSet) {
+	public BuildingDTO maprow(ResultSet resultSet) {
 
 		try {
-			Building building = new Building();
+			BuildingDTO building = new BuildingDTO();
 			String name = resultSet.getString("name");
 			building.setName(name);
 			return building;

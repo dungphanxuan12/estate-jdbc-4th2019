@@ -1,6 +1,6 @@
-package com.laptrinhwebrework.model;
+package com.laptrinhwebrework.dto;
 
-public class Building {
+public class BuildingDTO {
 
 	private String name;
 	private String ward;

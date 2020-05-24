@@ -5,6 +5,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.beanutils.BeanUtils;
@@ -24,36 +25,36 @@ import com.laptrinhwebrework.annotation.Entity;
 public class ResultSetMapper<T> {
 
 	/**
-	 * The mapRow method
 	 * 
 	 * @param resultSet
-	 * @param Class
-	 * 
-	 *                  If Class has anotation @Entity
-	 * 
+	 * @param zClass
+	 * @return
 	 */
-	@SuppressWarnings({ "unchecked", "rawtypes", "null" })
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public List<T> mapRow(ResultSet resultSet, Class zClass) {
-		List<T> results = null;
+		List<T> results = new ArrayList<>();
 
 		try {
 			if (zClass.isAnnotationPresent(Entity.class)) {
 				ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
+
 				Field[] fields = zClass.getDeclaredFields();
 				while (resultSet.next()) {
 					T object = (T) zClass.newInstance();
+
 					for (int i = 0; i < resultSetMetaData.getColumnCount(); i++) {
+
 						String columnName = resultSetMetaData.getColumnName(i + 1);
 						Object columnValue = resultSet.getObject(i + 1);
-						for (Field field : fields) {
-							if (field.isAnnotationPresent(Column.class)) {
-								Column column = field.getAnnotation(Column.class);
-								if (column.name().equals(columnName)) {
-									BeanUtils.setProperty(object, field.getName(), columnValue);
-									break;
-								}
-							}
+						convertResultSetToEntity(fields, columnName, columnValue, object);
+
+						Class parentClass = zClass.getSuperclass();
+						while (parentClass != null) {
+							Field[] parentFields = parentClass.getDeclaredFields();
+							convertResultSetToEntity(parentFields, columnName, columnValue, object);
+							parentClass = parentClass.getSuperclass();
 						}
+
 					}
 					results.add(object);
 				}
@@ -63,5 +64,27 @@ public class ResultSetMapper<T> {
 		}
 
 		return results;
+	}
+
+	/**
+	 * 
+	 * @param fields
+	 * @param columnName
+	 * @param columnValue
+	 * @param object
+	 * @throws IllegalAccessException
+	 * @throws InvocationTargetException
+	 */
+	private void convertResultSetToEntity(Field[] fields, String columnName, Object columnValue, T object)
+			throws IllegalAccessException, InvocationTargetException {
+		for (Field field : fields) {
+			if (field.isAnnotationPresent(Column.class)) {
+				Column column = field.getAnnotation(Column.class);
+				if (column.name().equals(columnName)) {
+					BeanUtils.setProperty(object, field.getName(), columnValue);
+					break;
+				}
+			}
+		}
 	}
 }
