@@ -12,6 +12,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.util.EntityUtils;
+
 import com.laptrinhweb.builder.BuildingSearchBuilder;
 import com.laptrinhweb.dto.BuildingDTO;
 import com.laptrinhweb.paging.PageRequest;
@@ -19,13 +25,6 @@ import com.laptrinhweb.paging.Pageble;
 import com.laptrinhweb.service.IBuildingService;
 import com.laptrinhweb.utils.DataUtils;
 import com.laptrinhweb.utils.FormUtil;
-
-import org.apache.commons.lang3.StringUtils;
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.util.EntityUtils;
 
 @WebServlet(urlPatterns = { "/admin-building" })
 public class BuildingController extends HttpServlet {

@@ -4,3 +4,5 @@ target
 .settings
 .idea
 /jdbc-basic-advance.iml
+/estate-jdbc-4th2019/*.classpath
+/estate-jdbc-4th2019/*.project
