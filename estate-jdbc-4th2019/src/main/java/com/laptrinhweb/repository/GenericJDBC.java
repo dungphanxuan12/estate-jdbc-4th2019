@@ -5,27 +5,62 @@ import java.util.Map;
 
 import com.laptrinhweb.paging.Pageble;
 
-@SuppressWarnings("hiding")
 public interface GenericJDBC<T> {
 
-//	public List<T> query(String sql, Object... parameters);
-//
-//	public void update(String sql, Object... parameters);
-//
-//	public Long insert(String sql, Object... parameters);// chưa sử dụng
-
+	/**
+	 * Insert Object into database
+	 * 
+	 * @param object
+	 * @return id
+	 */
 	public Long insert(Object object);
 
+	/**
+	 * Update database with Object value
+	 * 
+	 * @param object
+	 */
 	public void update(Object object);
 
+	/**
+	 * Delete object by id
+	 * 
+	 * @param id
+	 */
 	public void delete(Long id);
 
+	/**
+	 * Find Object belong <T> type by id
+	 * 
+	 * @param <T>
+	 * @param id
+	 * @return Object <T>
+	 */
+	@SuppressWarnings("hiding")
 	public <T> T findById(Long id);
-	
+
+	/**
+	 * Delete Object by properties
+	 * 
+	 * @param properties
+	 */
 	void deleteByProperty(String where);
 
-	List<T> findAll(Map<String,Object> properties,Pageble pageble,Object...where);
-	
+	/**
+	 * 
+	 * @param properties
+	 * @param pageble
+	 * @param where
+	 * @return
+	 */
+	List<T> findAll(Map<String, Object> properties, Pageble pageble, Object... where);
+
+	/**
+	 * 
+	 * @param properties
+	 * @param where
+	 * @return
+	 */
 	int countByProperty(Map<String, Object> properties, Object... where);
 
 }
