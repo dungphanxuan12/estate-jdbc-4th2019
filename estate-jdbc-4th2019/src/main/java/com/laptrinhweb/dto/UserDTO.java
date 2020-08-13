@@ -1,51 +1,35 @@
 package com.laptrinhweb.dto;
 
-public class UserDTO extends AbstractDTO<UserDTO>{
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
 
+import lombok.Getter;
+import lombok.Setter;
+
+/**
+ * 
+ * @author dungphan
+ *
+ */
+@Getter
+@Setter
+public class UserDTO extends AbstractDTO<UserDTO> {
+
+	@NotNull(message = "Username cannot be null")
 	private String userName;
+
+	@NotNull(message = "FullName cannot be null")
 	private String fullName;
+
+	@NotNull(message = "Password cannot be null")
 	private String password;
+
+	@NotNull(message = "Status cannot be null")
 	private int status;
+
+	@NotNull(message = "RoleId cannot be null")
 	private Long roleId;
 
-	public String getUserName() {
-		return userName;
-	}
-
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
-
-	public String getFullName() {
-		return fullName;
-	}
-
-	public void setFullName(String fullName) {
-		this.fullName = fullName;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public int getStatus() {
-		return status;
-	}
-
-	public void setStatus(int status) {
-		this.status = status;
-	}
-
-	public Long getRoleId() {
-		return roleId;
-	}
-
-	public void setRoleId(Long roleId) {
-		this.roleId = roleId;
-	}
-
+	@Email(message = "Email should be valid")
+	private String email;
 }
