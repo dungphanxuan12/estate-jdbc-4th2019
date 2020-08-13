@@ -219,7 +219,7 @@ public class AbstractJDBC<T> implements GenericJDBC<T> {
 				for (int i = 0; i < fields.length; i++) {
 					int index = i + 1;
 					Field field = fields[i];
-					field.setAccessible(true);// all fields is defined private setAccessible before set value
+					field.setAccessible(true);// all fields is defined private. setAccessible before get value
 					statement.setObject(index, field.get(object));
 				}
 
@@ -273,6 +273,10 @@ public class AbstractJDBC<T> implements GenericJDBC<T> {
 		}
 	}
 
+	/**
+	 * 
+	 * @return sql update statement
+	 */
 	private String createSQLUpdate() {
 
 		// get table name from anotaion
@@ -326,6 +330,10 @@ public class AbstractJDBC<T> implements GenericJDBC<T> {
 		return sql;
 	}
 
+	
+	/**
+	 * 
+	 */
 	@Override
 	public void delete(Long id) {
 
